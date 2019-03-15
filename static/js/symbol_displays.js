@@ -130,4 +130,50 @@ class DisplaysManager
 
         this.displays.push(new SymbolDisplay(PLAY_AREA_X, PLAY_AREA_Y, 'number'))
     }
+
+    add_display(type)
+    {
+        var x
+        var y = PLAY_AREA_Y
+        if (this.displays.length == 0)
+        {
+            x = PLAY_AREA_X
+        }
+        else
+        {
+            x = this.displays[this.displays.length - 1].x + MATCH_LENGTH + SEPARATION
+        }
+        this.displays.push(new SymbolDisplay(x, y, type))
+    }
+
+    render_text(text)
+    {
+        for (var display of this.displays)
+        {
+            display.clear()
+        }
+
+        this.displays = []
+
+        for (var symbol of text)
+        {
+            var type = ''
+            if (symbol in MAP_SYMBOLS_TO_SEGMENTS['number'])
+            {
+                type = 'number'
+            }
+            else if (symbol in MAP_SYMBOLS_TO_SEGMENTS['operator'])
+            {
+                type = 'operator'
+            }
+            else if (symbol == '=')
+            {
+                type = 'equal_sign'
+            }
+
+            this.add_display(type)
+
+            this.displays[this.displays.length - 1].render_symbol(symbol)
+        }
+    }
 }
