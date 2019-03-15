@@ -32,13 +32,9 @@ a{
     border-radius:30px;
 }
 
-#logo{
-    border:0!important;
-}
-
 .index_layout{
     display:flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
     width: 100vw;
@@ -51,11 +47,33 @@ a{
 
 .index_layout > *{
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    font-size: 3rem!important;
-    background-color: rgba(255,255,255,0)!important;
-    border-radius:20px!important;
-    border:6px solid #5A5A5A!important;
+    font-size:3rem;
+    background-color: rgba(255,255,255,0);
+    border-radius:20px;
+    border:6px solid #5A5A5A;
+    
 }
+
+.index_layout > input:nth-child(2){
+    margin-top:100px;
+}
+
+.index_layout > input:nth-child(1), input:nth-child(3){
+    font-size: 1.7rem;
+}
+
+#logo{
+    border:0!important;
+    position:absolute;
+    margin:0px auto;
+    left:0;
+    right:0;
+    background-image: url("http://diysolarpanelsv.com/images/example-13.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 
 #rotate_screen{
     background-image: url("https://i.imgur.com/u3t3f7F.jpg");
@@ -65,5 +83,22 @@ a{
     background-size: cover;
     background-repeat: no-repeat;
     display:none;
+}
+
+@media only screen and (max-width: 600px, max-height: 9in){
+    .index_layout{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .index_layout > input:nth-child(2){
+        margin:50px;
+
+    }
+    .index_layout > *{
+        font-size:2rem;
+    }
+    .index_layout > input:nth-child(1), input:nth-child(3){
+        font-size: 1.3rem;
+    }
 }
 

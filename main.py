@@ -218,7 +218,7 @@ def register():
     session["id"] = user_data["id"]
     session["username"] = username
 
-    return redirect("/setings")
+    return redirect("/settings")
 
 
 @app.route("/login", methods=["POST"])
@@ -246,15 +246,15 @@ def login():
     session["username"] = user_data["username"]
     session["id"] = user_data["id"]
 
-    return redirect("/setings")
+    return redirect("/settings")
 
 
 @app.route("/game/<string:mode>")
 def game(mode):
     return render_template("game.html", name=session["username"], id=session["id"], mode=mode)
 
-@app.route("/setings", methods=["GET", "POST"])
-def setings():
+@app.route("/settings", methods=["GET", "POST"])
+def settings():
     if request.method == "GET":
         return render_template("index.html")
     else:
