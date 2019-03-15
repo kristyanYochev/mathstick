@@ -94,5 +94,22 @@ def game():
     return render_template("game.html", name=session["username"], id=session["id"])
 
 
+@app.route("/get/equation", methods=["POST"])
+def get_equation():
+    json_data = request.get_json()
+    id = json_data["id"]
+
+    with db.cursor() as cursor:
+        cursor.execute(
+            'SELECT * FROM equations WHERE id NOT IN (SELECT equation_id FROM completed WHERE user_id = %s) ORDER BY RAND() LIMIT 1',
+            (id)
+        )
+
+        equation = cursor.fetchone()
+
+    return jsonify(equation)
+
+
+
 if __name__ == "__main__":
     app.run(debug=True, host=HOST, port=int(PORT))
