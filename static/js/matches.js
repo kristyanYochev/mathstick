@@ -86,8 +86,9 @@ class MatchesManager
         for (var match_index in this.matches)
         {
             if (
-                this.matches[match_index].sprite.x == x &&
-                this.matches[match_index].sprite.y == y
+                this.matches[match_index].sprite.position.x == x &&
+                this.matches[match_index].sprite.position.y == y &&
+                this.matches[match_index].sprite.rotation == angle
             )
             {
                 removed_match = this.matches.splice(match_index, 1)[0]
