@@ -76,7 +76,8 @@
 }
 
 .left-half > input:-webkit-autofill{
-  -webkit-box-shadow: 0 0 0px 1000px #E2BF97 inset;
+    box-shadow: 0 0 0px 1000px #E2BF97 inset;
+    -webkit-box-shadow: 0 0 0px 1000px #E2BF97 inset;
 }
 
 .right-half { /*register page*/
@@ -154,9 +155,9 @@
     border-bottom: 2px solid white;
 }
 
-.right-half > input:not([type=submit]):focus:not([type=button]):focus{
+/* .right-half > input:not([type=submit]):focus:not([type=button]):focus{
     border-bottom: 2px solid #c06c84;
-}
+} */
 
 .right-half > input::placeholder {
     color:rgba(255,255,255,0.4);
@@ -164,6 +165,7 @@
 
 .right-half > input:-webkit-autofill{
     -webkit-text-fill-color: white;
+    box-shadow: 0 0 0px 1000px #5C351E inset;
     -webkit-box-shadow: 0 0 0px 1000px #5C351E inset;
 }
 
@@ -220,7 +222,7 @@
     .left-half > *:not(:first-child):not(:nth-last-child(2)):not(:last-child),
     .right-half > *:not(:first-child):not(:nth-last-child(2)):not(:last-child){
         font-size:20px;
-        width:40vw;
+        width:50vw;
         text-align: center;
     }
     

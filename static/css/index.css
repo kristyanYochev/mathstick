@@ -14,3 +14,22 @@ a{
     cursor: pointer;
 }
 
+.layout{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#rotate_screen{
+    background-image: url("https://i.imgur.com/u3t3f7F.jpg");
+    width:100vw;
+    height:100vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display:none;
+}
