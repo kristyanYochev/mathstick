@@ -89,6 +89,7 @@ const MAP_SYMBOLS_TO_SEGMENTS = {
 
 ////////////////////////////////////////////////////////////
 PIXI.loader
+    .add('background', '/static/images/green_background.png')
     .add('matchstick', '/static/images/klechka.png')
     .load(init)
 
@@ -113,6 +114,14 @@ function init()
     matches_manager = new MatchesManager()
     displays_manager = new DisplaysManager()
     // matches_manager.add_matchstick(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, 0, true)
+
+    var background = new PIXI.Sprite(PIXI.loader.resources.background.texture)
+    var bg_scale_x = CANVAS_WIDTH / PIXI.loader.resources.background.texture.width
+    var bg_scale_y = CANVAS_HEIGHT / PIXI.loader.resources.background.texture.height
+
+    background.scale.set(bg_scale_x, bg_scale_y)
+
+    stage.addChild(background)
 
     var uid = document.getElementById("user_id").value
 
