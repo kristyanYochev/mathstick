@@ -12,16 +12,9 @@ from config import DATABASE_HOST, \
 from flask_socketio import SocketIO, join_room, leave_room, emit
 
 # Utils
+from validate_email import validate_email
 import random
 import uuid
-
-db = pymysql.connect(
-    host=DATABASE_HOST,
-    user=DATABASE_USER,
-    password=DATABASE_PASSWORD,
-    database=DATABASE_DATABASE,
-    cursorclass=pymysql.cursors.DictCursor
-)
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "fjwwuhf72te8tr$^E$RIYT^E#%@$_))&^$W@>><GHtdwygif37ytr68fr3yhuiahfi7ybw7b"
@@ -43,7 +36,17 @@ def get_equations(number_of_equations, user_ids):
 
     sql_users = sql_users[:-2]
 
-    sql_query = "SELECT * FROM equations WHERE id NOT IN (SELECT equation_id FROM completed WHERE user_id in ({})) ORDER BY RAND() LIMIT {}".format(
+    sql_query = '''
+        SELECT * 
+        FROM equations 
+        WHERE id NOT IN 
+        (
+            SELECT equation_id 
+            FROM completed 
+            WHERE user_id IN ({})
+        ) 
+        ORDER BY RAND() LIMIT {}
+        '''.format(
         pymysql.escape_string(sql_users),
         pymysql.escape_string(str(number_of_equations))
     )
@@ -118,6 +121,11 @@ def register():
     email = request.form["email"]
 
     INVALID_USERNAME_OR_EMAIL_ERROR = "Username or email exists!"
+    INVALID_EMAIL_ERROR = "Email is invalid!"
+
+    if validate_email(email) != True:
+        return render_template("LoginRegister.html", register_error=INVALID_EMAIL_ERROR)
+
 
     with db.cursor() as cursor:
         cursor.execute(
@@ -133,7 +141,7 @@ def register():
             )
             db.commit()
         else:
-            return INVALID_USERNAME_OR_EMAIL_ERROR
+            return render_template("LoginRegister.html", register_error=INVALID_USERNAME_OR_EMAIL_ERROR)
 
         cursor.execute(
             'SELECT * FROM users WHERE username = %s OR email = %s',
@@ -164,10 +172,10 @@ def login():
         user_data = cursor.fetchone()
 
         if user_data is None:
-            return INVALID_EMAIL_ERROR
+            return render_template("LoginRegister.html", login_error=INVALID_EMAIL_ERROR)
 
         if sha256.verify(password, user_data['password']) != 1:
-            return INVALID_PASSWORD_ERROR
+            return render_template("LoginRegister.html", login_error=INVALID_PASSWORD_ERROR)
 
     session["username"] = user_data["username"]
     session["id"] = user_data["id"]
@@ -216,4 +224,19 @@ def completed():
 
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True, host=HOST, port=int(PORT))
+    try:
+        db = pymysql.connect(
+            host=DATABASE_HOST,
+            user=DATABASE_USER,
+            password=DATABASE_PASSWORD,
+            database=DATABASE_DATABASE,
+            cursorclass=pymysql.cursors.DictCursor
+        )
+
+        socketio.run(app, debug=True, host=HOST, port=int(PORT))
+    except:
+        print("An error occured")
+        exit()
+
+        
+    
