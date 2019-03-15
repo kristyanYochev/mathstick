@@ -35,6 +35,8 @@ class Match
     {
         this.dragging = false
         this.drag_data = null
+
+        check_if_game_finished()
     }
 
     on_drag_move()
