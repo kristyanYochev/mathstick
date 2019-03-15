@@ -93,11 +93,40 @@ PIXI.loader
     .load(init)
 
 ////////////////////////////////////////////////////////////
+function check_if_game_finished()
+{
+    var display_value = displays_manager.get_text()
+
+    if (display_value)
+    {
+        var sides = display_value.split('=')
+        if (eval(sides[0]) == eval(sides[1]))
+        {
+            alert('You won!')
+        }
+    }
+}
+
+////////////////////////////////////////////////////////////
 function init()
 {
     matches_manager = new MatchesManager()
     displays_manager = new DisplaysManager()
     // matches_manager.add_matchstick(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, 0, true)
+
+    var uid = document.getElementById("user_id").value
+
+    fetch('/get/equation', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id: uid})
+    })
+    .then(resp => resp.json())
+    .then(resp => {
+        displays_manager.render_text(resp.equation)
+    })
 
     main_loop()
 }
