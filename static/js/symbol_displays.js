@@ -176,4 +176,23 @@ class DisplaysManager
             this.displays[this.displays.length - 1].render_symbol(symbol)
         }
     }
+
+    get_text()
+    {
+        var text = ''
+        var curr_char = ''
+        
+        for (var display of this.displays)
+        {
+            curr_char = display.get_symbol()
+            if (curr_char == null)
+            {
+                return null
+            }
+
+            text += curr_char
+        }
+
+        return text
+    }
 }
