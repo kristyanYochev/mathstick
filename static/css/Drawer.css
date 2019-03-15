@@ -5,8 +5,6 @@
     right:0;
     cursor: pointer;
     z-index:1;
-    visibility: hidden;
-    pointer-events:none;
 }
 
 .drawer_icon{
@@ -57,7 +55,6 @@
     box-shadow:0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     border-bottom-left-radius: 5px;
     transition: 0.3s;
-    visibility: visible;
 }
 
 .drawer_menu > header {
@@ -83,6 +80,5 @@
 }
 
 @media only screen and (max-height: 6.5in) {
-    .drawer_corner{
-        visibility: visible;
-    }
+    
+}
