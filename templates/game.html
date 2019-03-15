@@ -4,14 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="../static/css/Drawer.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
     <title>MathStick</title>
 </head>
 <body>
-    
+    <div id="content">
+        <div onClick="show_drawer()" class="drawer_corner">
+            <div class="drawer_icon">
+                <span class="closed"></span>
+                <span class="closed"></span>
+            </div>
+            <div style="transform: translateX(-100%)" class="drawer_menu">
+                <header>Menu</header>
+                <a href="#">Home</a>
+                <a href="#">Profile</a>
+                <a href="#">About Us</a>
+            </div>
+        </div>
+        <div class="layout">
+            <div id="game">
+
+            </div>
+        </div>
+    </div>
+    <div id="rotate_screen"></div>
+    <!-- <h1>Hello {{ name }} {{ id }}</h1> -->
     <script src="/static/lib/pixi.min.js"></script>
     <script src="/static/js/utils.js"></script>
     <script src="/static/js/symbol_displays.js"></script>
     <script src="/static/js/matches.js"></script>
     <script src="/static/js/main.js"></script>
+    <script>
+        if(window.innerHeight > window.innerWidth){
+            document.getElementById("content").style.display = "none"
+            document.getElementById("rotate_screen").style.display = "block"
+        }
+        window.addEventListener("orientationchange", function() {
+            if(screen.orientation.angle == 180 || screen.orientation.angle == 0){
+                document.getElementById("content").style.display = "none"
+                document.getElementById("rotate_screen").style.display = "block"
+            } else {
+                document.getElementById("content").style.display = "block"
+                document.getElementById("rotate_screen").style.display = "none"
+            }
+        });
+        function show_drawer(){
+            var drawer = document.getElementsByClassName("drawer_icon")[0]
+            var drawer_menu = document.getElementsByClassName("drawer_menu")[0]
+            for(var i=0;i<drawer.children.length;i++){
+                if(drawer.children[i].classList.contains("closed")){
+                    drawer.children[i].classList.remove("closed")
+                    drawer.children[i].classList.add("opened")
+                } else{
+                    drawer.children[i].classList.remove("opened")
+                    drawer.children[i].classList.add("closed")
+                }
+            }
+            if(drawer_menu.style.transform == "translateX(-100%)"){
+                drawer_menu.style.transform = "translateX(0)"
+            } else{
+                drawer_menu.style.transform = "translateX(-100%)"
+            }
+        }
+    </script>
 </body>
 </html>
