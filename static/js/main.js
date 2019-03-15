@@ -9,15 +9,23 @@ document.body.appendChild(renderer.view)
 var stage = new PIXI.Container()
 stage.interactive = true
 
+var matches_manager
+
+////////////////////////////////////////////////////////////
+const MATCH_LENGTH = 70
+
 ////////////////////////////////////////////////////////////
 PIXI.loader
-    .add('matchsick', '/static/images/klechka.png')
+    .add('matchstick', '/static/images/klechka.png')
     .load(init)
 
 ////////////////////////////////////////////////////////////
 function init()
 {
-    
+    matches_manager = new MatchesManager()
+    matches_manager.add_matchstick(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, 0, true)
+
+    main_loop()
 }
 
 function main_loop()
