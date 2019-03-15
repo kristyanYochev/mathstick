@@ -109,6 +109,23 @@ def get_equation():
 
     return jsonify(equation)
 
+@app.route("/complete", methods=["POST"])
+def completed():
+    json_data = request.get_json()
+    user_id = json_data["user_id"]
+    equation_id = json_data["equation_id"]
+    time = json_data["time"]
+
+    with db.cursor() as cursor:
+        # TODO: Add time to table and use it
+        cursor.execute(
+            'INSERT INTO completed (user_id, equation_id) VALUES (%s, %s)',
+            (user_id, equation_id)
+        )
+
+        db.commit()
+    
+    return jsonify(success=1)
 
 
 if __name__ == "__main__":
