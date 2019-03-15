@@ -9,6 +9,9 @@
     display:grid;
     grid-row-gap:50px;
     grid-template-rows: 100px 100px 32px 32px 50px;
+    background-image: url("http://lisaasmith.com/wp-content/uploads/2018/06/light-wood-table-texture_light_wood_grain_texture_wallmayacom_light_wooden_table_texture.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     justify-items: end;
     animation: fade 0.5s forwards;
     opacity:0;
@@ -76,6 +79,9 @@
     display:grid;
     grid-row-gap:50px;
     grid-template-rows: 100px 100px 32px 32px 32px 32px 50px;
+    background-image: url("https://i.imgur.com/dd5gCKd.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     justify-items: start;
     animation: fade 0.5s forwards;
     opacity:0;
