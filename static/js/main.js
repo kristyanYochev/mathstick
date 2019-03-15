@@ -93,7 +93,7 @@ const MAP_SYMBOLS_TO_SEGMENTS = {
 ////////////////////////////////////////////////////////////
 PIXI.loader
     .add('background', '/static/images/green_background.png')
-    .add('matchstick', '/static/images/stick3.png')
+    .add('matchstick', '/static/images/stick4.png')
     .load(init)
 
 ////////////////////////////////////////////////////////////
