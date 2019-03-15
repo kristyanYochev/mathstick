@@ -15,7 +15,6 @@
 				<input class="textfield" type="password" spellCheck="false" placeholder="Password" name="password"/>
                 <input onClick="switch_halves()" class="button" type="button" value="Sign Up"/>
                 <input class="button" type="submit" value="Submit"/>
-                {{ login_error }}
             </form>
             <form class="right-half" action="/register" method="POST">
 				<h1>Register</h1>
@@ -26,15 +25,30 @@
 				<input class="textfield" type="password" spellCheck="false" placeholder="Confirm Password"/>				
                 <input onClick="switch_halves()" class="button" type="button" value="Sign In"/>
                 <input class="button" type="submit" value="Submit"/>
-                {{ register_error }}
 			</form>
         </div>
+        <input type="hidden" id="login_error" value="{{ login_error }}">
+        <input type="hidden" id="register_error" value="{{ register_error }}">
         <script>
-			var login = document.getElementsByClassName("left-half")[0]
-			var register = document.getElementsByClassName("right-half")[0]
-			if(window.matchMedia("(max-width: 600px)").matches){
-				register.style.display = "none"
-			}
+			(function(){
+                var login = document.getElementsByClassName("left-half")[0]
+                var register = document.getElementsByClassName("right-half")[0]
+                if(window.matchMedia("(max-width: 600px)").matches){
+                    register.style.display = "none"
+                }
+                
+            })()
+            window.onload = function(){
+                if(document.getElementById("login_error").value!=""){
+                    alert(document.getElementById("login_error").value)
+                }
+                if(document.getElementById("register_error").value!=""){
+                    alert(document.getElementById("register_error").value)
+                }
+            }
+            // function check_credentials(){
+            //     if({{ register_error }})
+            // }
 			function switch_halves(){
 				if(register.style.display == "none"){
 					register.style.display = "grid"
