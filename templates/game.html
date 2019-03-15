@@ -15,8 +15,8 @@
                 <span class="closed"></span>
                 <span class="closed"></span>
             </div>
-            <div style="transform: translateX(-100%)" class="drawer_menu">
-                <header>Menu</header>
+            <div style="transform: translateX(0)" class="drawer_menu">
+                <header>Players</header>
                 <a href="#">Home</a>
                 <a href="#">Profile</a>
                 <a href="#">About Us</a>
@@ -30,6 +30,8 @@
     </div>
     <div id="rotate_screen"></div>
     <!-- <h1>Hello {{ name }} {{ id }}</h1> -->
+    <input type="hidden" id="user_id" value="{{ id }}">
+    <input type="hidden" id="username" value="{{ name }}">
     <script src="/static/lib/pixi.min.js"></script>
     <script src="/static/js/utils.js"></script>
     <script src="/static/js/symbol_displays.js"></script>
@@ -61,10 +63,10 @@
                     drawer.children[i].classList.add("closed")
                 }
             }
-            if(drawer_menu.style.transform == "translateX(-100%)"){
+            if(drawer_menu.style.transform == "translateX(100%)"){
                 drawer_menu.style.transform = "translateX(0)"
             } else{
-                drawer_menu.style.transform = "translateX(-100%)"
+                drawer_menu.style.transform = "translateX(100%)"
             }
         }
     </script>

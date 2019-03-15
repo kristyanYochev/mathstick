@@ -41,9 +41,10 @@ var displays_manager
  *   ---1---
  */
 ////////////////////////////////////////////////////////////
-const MATCH_LENGTH = 70
+const MATCH_LENGTH = 80
 const SNAP_DISTANCE = 30
-const PLAY_AREA_X = 200
+const SEPARATION = 40
+const PLAY_AREA_X = 100
 const PLAY_AREA_Y = 200
 const DISPLAY_SEGMENTS = {
     number: [
@@ -96,7 +97,7 @@ function init()
 {
     matches_manager = new MatchesManager()
     displays_manager = new DisplaysManager()
-    matches_manager.add_matchstick(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, 0, true)
+    // matches_manager.add_matchstick(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, 0, true)
 
     main_loop()
 }
