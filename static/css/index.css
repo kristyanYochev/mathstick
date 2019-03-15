@@ -27,6 +27,11 @@ a{
     background-repeat: no-repeat;
 }
 
+#game > canvas{
+    border:20px double grey;
+    border-radius:30px;
+}
+
 .index_layout{
     display:flex;
     flex-direction: column;
