@@ -15,8 +15,8 @@
                 <span class="closed"></span>
                 <span class="closed"></span>
             </div>
-            <div style="transform: translateX(-100%)" class="drawer_menu">
-                <header>Menu</header>
+            <div style="transform: translateX(0)" class="drawer_menu">
+                <header>Players</header>
                 <a href="#">Home</a>
                 <a href="#">Profile</a>
                 <a href="#">About Us</a>
@@ -61,10 +61,10 @@
                     drawer.children[i].classList.add("closed")
                 }
             }
-            if(drawer_menu.style.transform == "translateX(-100%)"){
+            if(drawer_menu.style.transform == "translateX(100%)"){
                 drawer_menu.style.transform = "translateX(0)"
             } else{
-                drawer_menu.style.transform = "translateX(-100%)"
+                drawer_menu.style.transform = "translateX(100%)"
             }
         }
     </script>
