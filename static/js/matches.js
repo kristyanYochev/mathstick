@@ -78,4 +78,24 @@ class MatchesManager
         stage.addChild(match.sprite)
         this.matches.push(match)
     }
+
+    remove_matchstick_by_position(x, y, angle)
+    {
+        var removed_match
+
+        for (var match_index in this.matches)
+        {
+            if (
+                this.matches[match_index].sprite.position.x == x &&
+                this.matches[match_index].sprite.position.y == y &&
+                this.matches[match_index].sprite.rotation == angle
+            )
+            {
+                removed_match = this.matches.splice(match_index, 1)[0]
+            }
+        }
+
+        stage.removeChild(removed_match.sprite)
+        removed_match.sprite.destroy()
+    }
 }
