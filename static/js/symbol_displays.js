@@ -49,11 +49,76 @@ class Segment
 
 class SymbolDisplay
 {
-    constructor()
+    constructor(x, y, type)
     {
         this.segments = []
+        this.type = type
+        this.x = x
+        this.y = y
+        
+        // this.segments.push(new Segment(200, 200, 0, true))
+        for (var segment of DISPLAY_SEGMENTS[type])
+        {
+            this.segments.push(new Segment(
+                this.x + segment.x,
+                this.y + segment.y,
+                segment.angle,
+                segment.interactive
+            ))
+        }
+    }
 
-        this.segments.push(new Segment(200, 200, 0, true))
+    clear()
+    {
+        for (var segment of this.segments)
+        {
+            segment.remove_matchstick()
+        }
+    }
+
+    render_symbol(symbol)
+    {
+        this.clear()
+
+        if (!(symbol in MAP_SYMBOLS_TO_SEGMENTS[this.type]))
+        {
+            return
+        }
+
+        for (var segment of MAP_SYMBOLS_TO_SEGMENTS[this.type][symbol])
+        {
+            this.segments[segment].add_matchstick()
+        }
+    }
+
+    get_on_segments()
+    {
+        var on_segments = []
+
+        for (var segment_number in this.segments)
+        {
+            if (this.segments[segment_number].has_matchstick())
+            {
+                on_segments.push(parseInt(segment_number))
+            }
+        }
+
+        return on_segments
+    }
+
+    get_symbol()
+    {
+        var on_segments = this.get_on_segments()
+
+        for (var symbol in MAP_SYMBOLS_TO_SEGMENTS[this.type])
+        {
+            if (arrays_have_same_members(on_segments, MAP_SYMBOLS_TO_SEGMENTS[this.type][symbol]))
+            {
+                return symbol
+            }
+        }
+
+        return null
     }
 }
 
@@ -63,6 +128,6 @@ class DisplaysManager
     {
         this.displays = []
 
-        this.displays.push(new SymbolDisplay())
+        this.displays.push(new SymbolDisplay(PLAY_AREA_X, PLAY_AREA_Y, 'number'))
     }
 }

@@ -49,7 +49,10 @@ class Match
             {
                 for (var segment of display.segments)
                 {
-                    if (distance_between_points(this.position.x, this.position.y, segment.x, segment.y) < SNAP_DISTANCE)
+                    if (
+                        distance_between_points(new_position.x, new_position.y, segment.x, segment.y) < SNAP_DISTANCE &&
+                        !segment.has_matchstick()
+                    )
                     {
                         this.position.x = segment.x
                         this.position.y = segment.y
