@@ -2,24 +2,28 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="../static/css/index.css">
         <link rel="stylesheet" type="text/css" href="../static/css/LoginRegister.css">
     </head>
     <body>
         <div class="wrapper">
-            <div class="left-half">
-                <h1>Login</h1>
-                <input type="email" placeholder="Email" name="email"/>
-                <input type="password" placeholder="Password" name="password"/>
-                <input type="sumbit" value="submit"/>
-            </div>
-            <div class="right-half">
-                <h1>Register</h1>
-                <input type="text" placeholder="Username" name="username"/>
-                <input type="email" placeholder="Email" name="email"/>
-                <input type="password" placeholder="Password" name="password"/>
-                <input type="password" placeholder="Confirm Password" name="password"/>
+			<div class="left-half">
+				<h1>Login</h1>
+				<input type="email" spellCheck="false" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Email" name="email"/>
+				<input type="password" spellCheck="false" placeholder="Password" name="password"/>
+                <input type="button" value="Sign Up"/>
                 <input type="submit" value="Submit"/>
             </div>
-        </div>
+            <div class="right-half">
+				<h1>Register</h1>
+
+                <input type="text" spellCheck="false" placeholder="Username" name="username"/>
+                <input type="email" spellCheck="false" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Email" name="email"/>
+                <input type="password" spellCheck="false" placeholder="Password" name="password"/>
+				<input type="password" spellCheck="false" placeholder="Confirm Password"/>				
+                <input type="button" value="Sign In"/>
+                <input type="submit" value="Submit"/>
+			</div>
+		</div>
     </body>
 </html>
