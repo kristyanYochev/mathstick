@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="../static/css/Drawer.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/Button.css">
+    <title>MathStick</title>
+</head>
+<body>
+    <div id="content">
+        <div class="index_layout">
+            <input class="button" type="button" value="SINGLEPLAYER"/>
+            <input class="button" type="button" value="CREATE ROOM"/>
+            <input class="button" type="button" value="JOIN ROOM"/>
+        </div>
+    </div>
+    <!-- <h1>Hello {{ name }} {{ id }}</h1> -->
+    <input type="hidden" id="user_id" value="{{ id }}">
+    <input type="hidden" id="username" value="{{ name }}">
+    <script src="/static/lib/pixi.min.js"></script>
+    <script src="/static/js/utils.js"></script>
+    <script src="/static/js/symbol_displays.js"></script>
+    <script src="/static/js/matches.js"></script>
+    <script src="/static/js/main.js"></script>
+   
+</body>
+</html>

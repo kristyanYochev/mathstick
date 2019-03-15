@@ -27,12 +27,28 @@
                 <input class="button" type="submit" value="Submit"/>
 			</form>
         </div>
+        <input type="hidden" id="login_error" value="{{ login_error }}">
+        <input type="hidden" id="register_error" value="{{ register_error }}">
         <script>
-			var login = document.getElementsByClassName("left-half")[0]
-			var register = document.getElementsByClassName("right-half")[0]
-			if(window.matchMedia("(max-width: 600px)").matches){
-				register.style.display = "none"
-			}
+			(function(){
+                var login = document.getElementsByClassName("left-half")[0]
+                var register = document.getElementsByClassName("right-half")[0]
+                if(window.matchMedia("(max-width: 600px)").matches){
+                    register.style.display = "none"
+                }
+                
+            })()
+            window.onload = function(){
+                if(document.getElementById("login_error").value!=""){
+                    alert(document.getElementById("login_error").value)
+                }
+                if(document.getElementById("register_error").value!=""){
+                    alert(document.getElementById("register_error").value)
+                }
+            }
+            // function check_credentials(){
+            //     if({{ register_error }})
+            // }
 			function switch_halves(){
 				if(register.style.display == "none"){
 					register.style.display = "grid"

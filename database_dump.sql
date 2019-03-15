@@ -34,7 +34,7 @@ CREATE TABLE `completed` (
 
 LOCK TABLES `completed` WRITE;
 /*!40000 ALTER TABLE `completed` DISABLE KEYS */;
-INSERT INTO `completed` VALUES (1,1),(1,2),(2,1),(2,7);
+INSERT INTO `completed` VALUES (1,1),(1,2),(2,7);
 /*!40000 ALTER TABLE `completed` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -58,7 +58,7 @@ CREATE TABLE `equations` (
 
 LOCK TABLES `equations` WRITE;
 /*!40000 ALTER TABLE `equations` DISABLE KEYS */;
-INSERT INTO `equations` VALUES (1,'1+1=3'),(2,'2+2=5'),(3,'3+3=10'),(4,'3+6=10'),(5,'3+6=50'),(6,'10+6=50'),(7,'10+6=5');
+INSERT INTO `equations` VALUES (1,'30-8=31'),(2,'48-6=43'),(3,'56-6=56'),(4,'60-8=66'),(5,'98-9=92'),(6,'59-5=34'),(7,'83+0=89');
 /*!40000 ALTER TABLE `equations` ENABLE KEYS */;
 UNLOCK TABLES;
 
