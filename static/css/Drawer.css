@@ -2,7 +2,6 @@
     width:50px;
     height: 55px;
     position: fixed;
-    right:0;
     cursor: pointer;
     z-index:1;
 }
@@ -15,7 +14,7 @@
     width:22px;
     height: 15px;
     top:15px;
-    right:13px;
+    left:13px;
     z-index: 1;
 }
 
@@ -48,18 +47,17 @@
 }
 
 .drawer_menu{
-    text-align:left;
+    text-align:right;
     background-color: white;
     position: fixed;
-    right:0;
     box-shadow:0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     transition: 0.3s;
 }
 
 .drawer_menu > header {
     
-    padding:0 100px 7px 18px;
+    padding:0 20px 7px 50px;
     margin-top:7px;
     font-size:25px;
     font-weight: bold;
@@ -72,7 +70,7 @@
 }
 
 .drawer_menu > a:last-child{
-    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .drawer_menu > a:hover{

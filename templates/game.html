@@ -51,7 +51,7 @@
                 } else {
                     document.getElementById("content").style.display = "block"
                     document.getElementById("rotate_screen").style.display = "none"
-                    document.getElementsByClassName("drawer_menu")[0].style.transform = "translateX(100%)"
+                    document.getElementsByClassName("drawer_menu")[0].style.transform = "translateX(-100%)"
                     for(var i=0;i<drawer.children.length;i++){
                         drawer.children[i].classList.remove("opened")
                         drawer.children[i].classList.add("closed")
@@ -71,10 +71,10 @@
                     drawer.children[i].classList.add("closed")
                 }
             }
-            if(drawer_menu.style.transform == "translateX(100%)"){
+            if(drawer_menu.style.transform == "translateX(-100%)"){
                 drawer_menu.style.transform = "translateX(0)"
             } else{
-                drawer_menu.style.transform = "translateX(100%)"
+                drawer_menu.style.transform = "translateX(-100%)"
             }
         }
     </script>
