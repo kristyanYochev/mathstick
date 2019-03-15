@@ -32,6 +32,10 @@ a{
     border-radius:30px;
 }
 
+#logo{
+    border:0!important;
+}
+
 .index_layout{
     display:flex;
     flex-direction: column;
