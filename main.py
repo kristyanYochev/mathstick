@@ -17,7 +17,7 @@ import random
 import uuid
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "fjwwuhf72te8tr$^E$RIYT^E#%@$_))&^$W@>><GHtdwygif37ytr68fr3yhuiahfi7ybw7b"
+app.config["SECRET_KEY"] = "fjwwuhf72te8tr$^E$RIYT^E#%@$_))&^$W@>><GHtdwygif37ytr6fi7ybw7b"
 socketio = SocketIO(app)
 
 '''
@@ -65,7 +65,24 @@ def get_equations(number_of_equations, user_ids):
 @socketio.on("craete_room")
 def on_create_room(data):
     room_id = get_unique_id()
+
+    user_id = data["user_id"]
+    max_players = data["max_players"]
+
     join_room(room_id)
+
+    with db.cursor() as cursor:
+        cursor.execute(
+            'INSERT INTO rooms (room_id, max_players) VALUES (%s, %s)',
+            (room_id, max_players)
+        )
+
+        cursor.execute(
+            'INSERT INTO players (room_id, user_id) VALUES (%s, %s)',
+            (room_id, user_id)
+        )
+        db.commit()
+
     emit("created_room", {"room_id": room_id}, room=room_id)
 
 
@@ -75,8 +92,34 @@ def on_join_room(data):
     username = data["username"]
     user_id = data["user_id"]
 
-    join_room(room_id)
-    emit("joined_room", {"username": username, "user_id": user_id}, room=room_id)
+    with db.cursor() as cursor:
+        cursor.execute(
+            'INSERT INTO players (room_id, user_id) VALUES (%s, %s)',
+            (room_id, user_id)
+        )
+        db.commit()
+
+        cursor.execute(
+            'SELECT COUNT(*) AS count FROM players WHERE room_id = %s',
+            (room_id)
+        )
+        current_players = cursor.fetchone()["count"]
+
+        cursor.execute(
+            'SELECT max_players AS count FROM rooms WHERE room_id = %s',
+            (room_id)
+        )
+        max_players = cursor.fetchone()["max_players"]
+
+    if current_players == max_players:
+        join_room(room_id)
+        emit("joined_room", {"username": username, "user_id": user_id}, room=room_id)
+        emit("room_full", room=room_id)
+    elif current_players > max_players:
+        emit("room_full", room=room_id)
+    else:
+        join_room(room_id)
+        emit("joined_room", {"username": username, "user_id": user_id}, room=room_id)
 
 
 @socketio.on("start_game")
@@ -96,11 +139,34 @@ def on_finish_game(data):
     user_id = data["user_id"]
     time = data["time"]
 
+    with db.cursor() as cursor:
+        cursor.execute(
+            "UPDATE players SET time_finished = %s WHERE room_id = %s AND user_id = %s",
+            (time, room_id, user_id)
+        )
+        db.commit()
+
+        cursor.execute(
+            "select COUNT(*) AS count players WHERE room_id = %s AND time_finished != 0",
+            (room_id)
+        )
+        current_finished = cursor.fetchone()["count"]
+
+        cursor.execute(
+            'SELECT max_players AS count FROM rooms WHERE room_id = %s',
+            (room_id)
+        )
+        max_players = cursor.fetchone()["max_players"]
+
     emit("finished_game", {"user_id": user_id, "time": time}, room=room_id)
+
+    if current_finished == max_players:
+        emit("all_players_are_finished", room=room_id)
 
 
 @socketio.on("leave_room")
 def on_leave_room(data):
+    # TODO: delete user from db
     room_id = data["room_id"]
     leave_room(room_id)
 
@@ -152,7 +218,7 @@ def register():
     session["id"] = user_data["id"]
     session["username"] = username
 
-    return redirect("/game")
+    return redirect("/setings")
 
 
 @app.route("/login", methods=["POST"])
@@ -180,12 +246,19 @@ def login():
     session["username"] = user_data["username"]
     session["id"] = user_data["id"]
 
-    return redirect("/game")
+    return redirect("/setings")
 
 
-@app.route("/game")
-def game():
-    return render_template("game.html", name=session["username"], id=session["id"])
+@app.route("/game/<string:mode>")
+def game(mode):
+    return render_template("game.html", name=session["username"], id=session["id"], mode=mode)
+
+@app.route("/setings", methods=["GET", "POST"])
+def setings():
+    if request.method == "GET":
+        return render_template("index.html")
+    else:
+        return redirect("/game/singleplayer")
 
 
 @app.route("/get/equation", methods=["POST"])
@@ -224,19 +297,16 @@ def completed():
 
 
 if __name__ == "__main__":
-    try:
-        db = pymysql.connect(
-            host=DATABASE_HOST,
-            user=DATABASE_USER,
-            password=DATABASE_PASSWORD,
-            database=DATABASE_DATABASE,
-            cursorclass=pymysql.cursors.DictCursor
-        )
+    db = pymysql.connect(
+        host=DATABASE_HOST,
+        user=DATABASE_USER,
+        password=DATABASE_PASSWORD,
+        database=DATABASE_DATABASE,
+        cursorclass=pymysql.cursors.DictCursor
+    )
 
-        socketio.run(app, debug=True, host=HOST, port=int(PORT))
-    except:
-        print("An error occured")
-        exit()
+    socketio.run(app, debug=True, host=HOST, port=int(PORT))
+    
 
         
     
