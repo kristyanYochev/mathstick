@@ -4,27 +4,44 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="../static/css/index.css">
         <link rel="stylesheet" type="text/css" href="../static/css/LoginRegister.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/TextField.css">
     </head>
     <body>
         <div class="wrapper">
 			<form class="left-half" action="/login" method="POST">
 				<h1>Login</h1>
-				<input type="email" spellCheck="false" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Email" name="email"/>
-				<input type="password" spellCheck="false" placeholder="Password" name="password"/>
+				<input class="textfield" type="email" spellCheck="false" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Email" name="email"/>
+				<input class="textfield" type="password" spellCheck="false" placeholder="Password" name="password"/>
                 <input onClick="switch_halves()" type="button" value="Sign Up"/>
                 <input type="submit" value="Submit"/>
             </form>
             <form class="right-half" action="/login" method="POST">
 				<h1>Register</h1>
 
-                <input type="text" spellCheck="false" placeholder="Username" name="username"/>
-                <input type="email" spellCheck="false" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Email" name="email"/>
-                <input type="password" spellCheck="false" placeholder="Password" name="password"/>
-				<input type="password" spellCheck="false" placeholder="Confirm Password"/>				
+                <input class="textfield" type="text" spellCheck="false" placeholder="Username" name="username"/>
+                <input class="textfield" type="email" spellCheck="false" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Email" name="email"/>
+                <input class="textfield" type="password" spellCheck="false" placeholder="Password" name="password"/>
+				<input class="textfield" type="password" spellCheck="false" placeholder="Confirm Password"/>				
                 <input onClick="switch_halves()" type="button" value="Sign In"/>
                 <input type="submit" value="Submit"/>
 			</form>
         </div>
-        
+        <script>
+			var login = document.getElementsByClassName("left-half")[0]
+			var register = document.getElementsByClassName("right-half")[0]
+			if(window.matchMedia("(max-width: 600px)").matches){
+				register.style.display = "none"
+			}
+			function switch_halves(){
+				if(register.style.display == "none"){
+					register.style.display = "grid"
+					login.style.display = "none"
+				} else{
+					register.style.display = "none"
+					login.style.display = "grid"
+				}
+				
+			}
+		</script>
     </body>
 </html>
