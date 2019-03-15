@@ -1,0 +1,12 @@
+.textfield{
+    border:0;
+    background-color: rgba(255,255,255,0);
+    border-bottom:2px solid black;
+    outline:none;
+    transition: 0.3s;
+    padding:0 3px 1px 3px;
+}
+
+.textfield:focus{
+    border-bottom:2px solid orange;
+} 
