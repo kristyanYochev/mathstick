@@ -44,6 +44,21 @@ class Match
             var new_position = this.drag_data.getLocalPosition(this.parent)
             this.position.x = new_position.x
             this.position.y = new_position.y
+
+            for (var display of displays_manager.displays)
+            {
+                for (var segment of display.segments)
+                {
+                    if (distance_between_points(this.position.x, this.position.y, segment.x, segment.y) < SNAP_DISTANCE)
+                    {
+                        this.position.x = segment.x
+                        this.position.y = segment.y
+                        this.rotation = segment.angle
+
+                        return
+                    }
+                }
+            }
         }
     }
 }
