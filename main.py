@@ -249,7 +249,7 @@ def login():
     return redirect("/setings")
 
 
-@app.route("/game/<str:mode>")
+@app.route("/game/<string:mode>")
 def game(mode):
     return render_template("game.html", name=session["username"], id=session["id"], mode=mode)
 
