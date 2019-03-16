@@ -16,7 +16,7 @@ var finish_button
 var start_time
 var time_taken
 var time_display
-var game_mode = document.getElementById('gamemode').value
+var game_mode = sessionStorage.getItem('game_mode')
 var socket
 var equations
 var uid
