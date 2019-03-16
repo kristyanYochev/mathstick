@@ -136,6 +136,22 @@ def get_stick_price(stick_id):
     price = int(data["price"])
     return price
 
+def is_stick_bought(user_id, stick_id):
+    with db.cursor() as cursor:
+        cursor.execute(
+            '''SELECT * 
+               FROM bought_sticks 
+               WHERE user_id  = %s 
+                 AND stick_id = %s''',
+            (user_id, stick_id)
+        )
+        data = cursor.fetchone()
+
+        if data is None:
+            return False
+        else:
+            return True
+
 def update_user_coins(user_id, coins):
     with db.cursor() as cursor:
         cursor.execute(
@@ -476,7 +492,7 @@ def completed():
     )
 
 
-@app.route("/buy_stick")
+@app.route("/buy_stick", methods=["POST"])
 def buy_stick():
     json_data = request.get_json()
 
@@ -495,7 +511,44 @@ def buy_stick():
                    VALUES (%s, %s)'''
             )
 
-    return jsonify(success=1)
+    return jsonify(
+        success=1, 
+        coins= money - price
+    )
+
+
+@app.route("/use-stick", methods=["POST"])
+def use_stick():
+    json_data = request.get_json()
+    stick_id = json_data["stick_id"]
+    user_id = json_data["user_id"]
+
+    check = is_stick_bought(user_id, stick_id)
+
+    if check == True:
+        return jsonify(success=0)
+    else:
+        return jsonify(success=1)
+
+
+@app.route("/get-bought-sticks", methods=["POST"])
+def get_bought_sticks():
+    json_data = request.get_json()
+    user_id = json_data["user_id"]
+
+    with db.cursor() as cursor:
+        cursor.execute(
+            '''SELECT id, stick, url 
+               FROM sticks 
+               INNER JOIN bought_sticks 
+               ON sticks.id = bought_sticks.stick_id 
+               WHERE user_id = %s''',
+            (user_id)
+        )
+
+        bought_sticks = cursor.fetchall()
+
+    return jsonify(bought_sticks)
 
 
 if __name__ == "__main__":
