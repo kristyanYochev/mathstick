@@ -8,9 +8,13 @@ document.getElementById("game").appendChild(renderer.view)
 ////////////////////////////////////////////////////////////
 var stage = new PIXI.Container()
 stage.interactive = true
+var game_state = 'waiting'
 
 var matches_manager
 var displays_manager
+var finish_button
+var start_time
+var time_taken
 
 var uid
 var equation_id
@@ -94,7 +98,30 @@ const MAP_SYMBOLS_TO_SEGMENTS = {
 PIXI.loader
     .add('background', '/static/images/green_background.png')
     .add('matchstick', '/static/images/stick4.png')
+    .add('check', '/static/images/coins_broken_transperent.png')
     .load(init)
+
+////////////////////////////////////////////////////////////
+function finish_game()
+{
+    if (check_if_game_finished())
+    {
+        game_state = 'finished'
+        
+        fetch('/complete', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: uid,
+                equation_id: equation_id,
+                time: time_taken / 1000
+            })
+        })
+        alert(time_taken / 1000 + 's')
+    }
+}
 
 ////////////////////////////////////////////////////////////
 function check_if_game_finished()
@@ -106,20 +133,11 @@ function check_if_game_finished()
         var sides = display_value.split('=')
         if (eval(sides[0]) == eval(sides[1]))
         {
-            alert('You won!')
-            fetch('/complete', {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    user_id: uid,
-                    equation_id: equation_id,
-                    time: 3
-                })
-            })
+            return true
         }
     }
+
+    return false
 }
 
 ////////////////////////////////////////////////////////////
@@ -137,8 +155,23 @@ function init()
     background.scale.set(bg_scale_x, bg_scale_y)
 
     stage.addChild(background)
+    
+    ////////////////////////////////////////////////////////////
+    finish_button = new PIXI.Sprite(PIXI.loader.resources.check.texture)
+    var finish_scale = 200 / PIXI.loader.resources.check.texture.width
+
+    finish_button.scale.set(finish_scale, finish_scale)
+    finish_button.position.set(CANVAS_WIDTH - 170, CANVAS_HEIGHT - 170)
+    finish_button.interactive = true
+
+    finish_button.on('click', finish_game)
+
+    stage.addChild(finish_button)
 
     ////////////////////////////////////////////////////////////
+    start_time = Date.now()
+    game_state = 'running'
+
     uid = document.getElementById("user_id").value
 
     fetch('/get/equation', {
@@ -160,6 +193,10 @@ function init()
 
 function main_loop()
 {
+    if (game_state == 'running')
+    {
+        time_taken = Date.now() - start_time
+    }
     requestAnimationFrame(main_loop)
     renderer.render(stage)
 }
