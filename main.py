@@ -399,6 +399,27 @@ def settings():
         coins=points_and_coins["coins"]
     )
 
+
+@app.route("/control-panel", methods=["GET", "POST"])
+def control_panel():
+    if request.method == "GET":
+        return render_template("ControlPanel.html")
+    else:
+        equation = request.form["equation"]
+        moves = request.form["moves"]
+        # TODO: Put moves to database
+
+        with db.cursor() as cursor:
+            cursor.execute(
+                '''INSERT INTO equations (`equation`) 
+                   VALUES (%s)''',
+                (equation)
+            )
+            db.commit()
+
+        return render_template("ControlPanel.html")
+
+
 # ---------- Complex Routes ----------
 
 @app.route("/register", methods=["POST"])
