@@ -15,6 +15,7 @@ var displays_manager
 var finish_button
 var start_time
 var time_taken
+var time_display
 
 var uid
 var equation_id
@@ -169,6 +170,13 @@ function init()
     stage.addChild(finish_button)
 
     ////////////////////////////////////////////////////////////
+    time_display = new PIXI.Text('')
+    time_display.anchor.set(0.5, 0)
+    time_display.position.set(CANVAS_WIDTH / 2, 0)
+
+    stage.addChild(time_display)
+
+    ////////////////////////////////////////////////////////////
     start_time = Date.now()
     game_state = 'running'
 
@@ -196,6 +204,7 @@ function main_loop()
     if (game_state == 'running')
     {
         time_taken = Date.now() - start_time
+        time_display.text = (time_taken / 1000).toFixed(2) + 's'
     }
     requestAnimationFrame(main_loop)
     renderer.render(stage)
