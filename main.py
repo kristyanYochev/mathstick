@@ -544,6 +544,8 @@ def sticks():
                         (session["id"], stick_id)
                     )
 
+                    db.commit()
+
     available_sticks = get_available_sticks(session["id"])
     bought_sticks = get_bought_sticks(session["id"])
 
