@@ -101,7 +101,7 @@ def is_user_joined_room(room_id, user_id):
                FROM players 
                WHERE user_id = %s 
                  AND room_id = %s''',
-            (user_id)
+            (user_id, room_id)
         )
         user = cursor.fetchone()
 
