@@ -162,7 +162,8 @@ def on_join_room(data):
         join_room(room_id)
         emit("joined_room", {
                 "username": username, 
-                "user_id": user_id
+                "user_id": user_id,
+                "current_players": current_players
             }, room=room_id)
 
         emit("room_full", room=room_id)
