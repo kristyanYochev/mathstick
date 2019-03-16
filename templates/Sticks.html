@@ -14,78 +14,21 @@
     <body>
         <div class="shop_wrapper">
             <div>
-                <div>
-                    <img src="../static/images/coins_broken_transperent.png" alt="coin"/>
-                    <img src="../static/images/box_.png" alt="box_logo"/>
-                    <input class="buy button" type="button" value="Buy"/>
-                </div>
-                <div>
-                    <img src="../static/images/coins_broken_transperent.png" alt="box_logo"/>
-                    <img src="../static/images/box_.png" alt="box_logo"/>
-                    <input class="buy button" type="button" value="Buy"/>
-                </div>
-                <div>
-                    <img src="../static/images/coins_broken_transperent.png" alt="box_logo"/>
-                    <img src="../static/images/box_.png" alt="box_logo"/>
-                    <input class="buy button" type="button" value="Buy"/>
-                </div>
-                <div>
-                    <img src="../static/images/coins_broken_transperent.png" alt="box_logo"/>
-                    <img src="../static/images/box_.png" alt="box_logo"/>
-                    <input class="buy button" type="button" value="Buy"/>
-                </div>
-                <div>
-                    <img src="../static/images/coins_broken_transperent.png" alt="box_logo"/>
-                    <img src="../static/images/box_.png" alt="box_logo"/>
-                    <input class="buy button" type="button" value="Buy"/>
-                </div>
-                <div>
-                    <img src="../static/images/coins_broken_transperent.png" alt="box_logo"/>
-                    <img src="../static/images/box_.png" alt="box_logo"/>
-                    <input class="buy button" type="button" value="Buy"/>
-                </div>
-                <div>
-                    <img src="../static/images/coins_broken_transperent.png" alt="box_logo"/>
-                    <img src="../static/images/box_.png" alt="box_logo"/>
-                    <input class="buy button" type="button" value="Buy"/>
-                </div>
+                {% for stick in available_sticks %}
+                    <div>
+                        <img src="../static/images/coins_broken_transperent.png" alt="coin"/>
+                        {{ stick['price'] }}
+                        <img src="../static/images/{{ stick['url'] }}" alt="box_logo"/>
+                        <a href="/sticks?stick_id={{ stick['id'] }}"><input class="buy button" type="button" value="Buy"/></a>
+                    </div>
+                {% endfor %}
             </div>
             <div>
-                <div>
-                    <img src="../static/images/coins_broken_transperent.png" alt="coin"/>
-                    <img src="../static/images/box_.png" alt="box_logo"/>
-                    <input class="buy button" type="button" value="Buy"/>
-                </div>
-                <div>
-                    <img src="../static/images/coins_broken_transperent.png" alt="box_logo"/>
-                    <img src="../static/images/box_.png" alt="box_logo"/>
-                    <input class="buy button" type="button" value="Buy"/>
-                </div>
-                <div>
-                    <img src="../static/images/coins_broken_transperent.png" alt="box_logo"/>
-                    <img src="../static/images/box_.png" alt="box_logo"/>
-                    <input class="buy button" type="button" value="Buy"/>
-                </div>
-                <div>
-                    <img src="../static/images/coins_broken_transperent.png" alt="box_logo"/>
-                    <img src="../static/images/box_.png" alt="box_logo"/>
-                    <input class="buy button" type="button" value="Buy"/>
-                </div>
-                <div>
-                    <img src="../static/images/coins_broken_transperent.png" alt="box_logo"/>
-                    <img src="../static/images/box_.png" alt="box_logo"/>
-                    <input class="buy button" type="button" value="Buy"/>
-                </div>
-                <div>
-                    <img src="../static/images/coins_broken_transperent.png" alt="box_logo"/>
-                    <img src="../static/images/box_.png" alt="box_logo"/>
-                    <input class="buy button" type="button" value="Buy"/>
-                </div>
-                <div>
-                    <img src="../static/images/coins_broken_transperent.png" alt="box_logo"/>
-                    <img src="../static/images/box_.png" alt="box_logo"/>
-                    <input class="buy button" type="button" value="Buy"/>
-                </div>
+                {% for stick in bought_sticks %}
+                    <div>
+                        <img src="../static/images/{{ stick['url'] }}" alt="box_logo"/>
+                    </div>
+                {% endfor %}
             </div> 
         </div>
     </body>
