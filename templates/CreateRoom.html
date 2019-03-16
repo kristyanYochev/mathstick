@@ -14,6 +14,7 @@
     <body>
         <div class="create_room_wrapper">
             <div id="joined_players">
+                <span>Joined players:</span>
                 <span>Minerusher</span>
                 <span>Minerusher</span>
                 <span>Minerusher</span>
@@ -24,16 +25,12 @@
                 <span>Minerusher</span>
                 <span>Minerusher</span>
                 <span>Minerusher</span>
-                <span>Minerusher</span>
-                <span>Minerusher</span>
-                <span>Minerusher</span>
-                <span>Minerusher</span>
-                <span>Minerusher</span>
+                                
             </div>
             <div>
                 <span id="game_id">ID: Y6HGF6</span>
-                <span>Max players:<input id="maximum_players" class="textfield" type="text" spellCheck="false"/></span>
-                <span>Number of equations:<input id="number_of_equations" class="textfield" type="text" spellCheck="false"/></span>
+                <span>Max players:<input id="maximum_players" class="textfield" type="number" value="2" min="2" max="10" spellCheck="false"  onkeydown="return false"/></span>
+                <span>Number of equations:<input id="number_of_equations" class="textfield" type="number" value="1" min="1"  max="10" spellCheck="false"  onkeydown="return false"/></span>
             </div>
         </div>
     </body>
