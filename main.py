@@ -339,8 +339,9 @@ def login():
 
 
 @app.route("/game")
-def game(mode):
+def game():
     return render_template("game.html", name=session["username"], id=session["id"])
+
 
 @app.route("/settings", methods=["GET", "POST"])
 def settings():
