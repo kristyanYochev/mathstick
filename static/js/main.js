@@ -162,6 +162,10 @@ function finish_game()
                     time: time_taken / 1000
                 })
             })
+            .then(resp => resp.json())
+            .then(resp => {
+                document.getElementById('coin_count').innerText = resp.coins
+            })
             
             stage.removeChild(finish_button)
             stage.addChild(next_button)
