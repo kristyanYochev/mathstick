@@ -46,11 +46,24 @@
     font-size:35px;
 }
 
+.create_room_wrapper > div:nth-child(2) > input{
+    font-size:1.8rem;
+    background-color: rgba(255,255,255,0)!important;
+    border:2px dotted white; 
+    font-family: grafipaint;   
+    color:white;
+    transition: 0.3s;
+}
+
+.create_room_wrapper > div:nth-child(2) > input:hover{
+    font-size:2rem;
+}
+
 .create_room_wrapper > div:nth-child(2) > *{
     padding:10px;
 }
 
-#maximum_players, #number_of_equations{
+#maximum_players, #number_of_equations, #join_id{
     width:50px;
     border:0;
     color:white;
@@ -59,8 +72,17 @@
     padding-left:30px;
 }
 
-#maximum_players::placeholder, #number_of_equations::placeholder{
+#maximum_players::placeholder, #number_of_equations::placeholder, #join_id::placeholder{
     color:white;
+}
+
+#join_id{
+    width:auto;
+    padding-left:0px;
+}
+
+#join_id::placeholder{
+    text-align: center;
 }
 
 @media screen and (max-width: 768px){
