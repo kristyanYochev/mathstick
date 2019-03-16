@@ -107,7 +107,6 @@ def on_create_room():
     max_players = json_data["max_players"]
 
     room_id = get_unique_id()
-    join_room(room_id)
 
     with db.cursor() as cursor:
         cursor.execute(
@@ -141,12 +140,15 @@ def on_join_room(data):
         db.commit()
 
         cursor.execute(
-            '''SELECT COUNT(*) AS count 
+            '''SELECT username, user_id 
                FROM players 
+               INNER JOIN users 
+               ON players.user_id = users.id 
                WHERE room_id = %s''',
             (room_id)
         )
-        current_players = cursor.fetchone()["count"]
+        current_players = cursor.fetchall()
+        number_of_players = len(current_players)
 
         cursor.execute(
             '''SELECT max_players 
@@ -156,15 +158,25 @@ def on_join_room(data):
         )
         max_players = cursor.fetchone()["max_players"]
 
-    if current_players == max_players:
+    if number_of_players == max_players:
         join_room(room_id)
-        emit("joined_room", {"username": username, "user_id": user_id}, room=room_id)
+        emit("joined_room", {
+                "username": username, 
+                "user_id": user_id
+            }, room=room_id)
+
         emit("room_full", room=room_id)
-    elif current_players > max_players:
+
+    elif number_of_players > max_players:
         emit("room_full", room=room_id)
+
     else:
         join_room(room_id)
-        emit("joined_room", {"username": username, "user_id": user_id}, room=room_id)
+        emit("joined_room", {
+                "username": username, 
+                "user_id": user_id, 
+                "current_players": current_players
+            }, room=room_id)
 
 
 @socketio.on("start_game")
@@ -251,6 +263,15 @@ def index():
 def create_room_page():
     return render_template(
         "CreateRoom.html", 
+        name=session["username"], 
+        id=session["id"]
+    )
+
+
+@app.route("/join-room-page")
+def join_room_page():
+    return render_template(
+        "JoinRoom.html", 
         name=session["username"], 
         id=session["id"]
     )
