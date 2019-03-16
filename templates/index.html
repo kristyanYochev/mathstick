@@ -19,7 +19,13 @@
             <input class="button" type="button" value="JOIN ROOM" onclick="on_join_room_click()"/>
         </div>
     </div>
+    <input type="hidden" id="fallback_stick_url" value="{{ stick_url }}">
     <script>
+if (sessionStorage.getItem('stick_url')[0] != '/')  // If stick_url is not set
+{
+    sessionStorage.setItem('stick_url', document.getElementById('fallback_stick_url').value)
+}
+
 function on_singleplayer_click()
 {
     sessionStorage.setItem('game_mode', 'singleplayer')
