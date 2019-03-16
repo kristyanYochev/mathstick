@@ -34,7 +34,6 @@ CREATE TABLE `completed` (
 
 LOCK TABLES `completed` WRITE;
 /*!40000 ALTER TABLE `completed` DISABLE KEYS */;
-INSERT INTO `completed` VALUES (1,1),(1,2),(2,7);
 /*!40000 ALTER TABLE `completed` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,6 +59,52 @@ LOCK TABLES `equations` WRITE;
 /*!40000 ALTER TABLE `equations` DISABLE KEYS */;
 INSERT INTO `equations` VALUES (1,'30-8=31'),(2,'48-6=43'),(3,'56-6=56'),(4,'60-8=66'),(5,'98-9=92'),(6,'59-5=34'),(7,'83+0=89');
 /*!40000 ALTER TABLE `equations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `players`
+--
+
+DROP TABLE IF EXISTS `players`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `players` (
+  `room_id` varchar(64) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `time_finished` decimal(10,0) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `players`
+--
+
+LOCK TABLES `players` WRITE;
+/*!40000 ALTER TABLE `players` DISABLE KEYS */;
+/*!40000 ALTER TABLE `players` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rooms`
+--
+
+DROP TABLE IF EXISTS `rooms`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rooms` (
+  `room_id` varchar(64) DEFAULT NULL,
+  `max_players` int(11) DEFAULT NULL,
+  `time` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rooms`
+--
+
+LOCK TABLES `rooms` WRITE;
+/*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -101,7 +146,7 @@ CREATE TABLE `users` (
   `points` int(11) DEFAULT 0,
   `coins` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,7 +155,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Georgi','$5$rounds=535000$nziBB5TB1q4rB7yg$onG3HVkkQExu3Yi6xDJGtfjvq0gyGXx/iDOs6vzSbN/','georgikorchakov@gmail.com',0,0),(2,'asdd','$5$rounds=535000$.tpL1THz8gPnxTVv$jIcogmT8KIAw5IGiapXigwD7AaGuG9aAWPndTlXyua3','asdd@asdd.asdd',0,0);
+INSERT INTO `users` VALUES (1,'Georgi','$5$rounds=535000$nziBB5TB1q4rB7yg$onG3HVkkQExu3Yi6xDJGtfjvq0gyGXx/iDOs6vzSbN/','georgikorchakov@gmail.com',0,0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -123,4 +168,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-15 10:47:36
+-- Dump completed on 2019-03-16  8:51:10
