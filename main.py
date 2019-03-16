@@ -16,6 +16,9 @@ from validate_email import validate_email
 import random
 import uuid
 
+# Configuration
+from config import DEFAULT_STICK_URL
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "fjwwuhf72te8tr$^E$RIYT^E#%@$_))&^$W@>><GHtdwygif37ytr6fi7ybw7b"
 socketio = SocketIO(app)
@@ -360,7 +363,8 @@ def create_room_page():
     return render_template(
         "CreateRoom.html", 
         name=session["username"], 
-        id=session["id"]
+        id=session["id"],
+        stick_url=session["stick_url"]
     )
 
 
@@ -369,7 +373,8 @@ def join_room_page():
     return render_template(
         "JoinRoom.html", 
         name=session["username"], 
-        id=session["id"]
+        id=session["id"],
+        stick_url=session["stick_url"]
     )
 
 
@@ -380,6 +385,7 @@ def game():
         "game.html", 
         name=session["username"], 
         id=session["id"],
+        stick_url=session["stick_url"],
         points=points_and_coins["points"],
         coins=points_and_coins["coins"]
     )
@@ -407,7 +413,6 @@ def register():
 
     if validate_email(email) != True:
         return render_template("LoginRegister.html", register_error=INVALID_EMAIL_ERROR)
-
 
     with db.cursor() as cursor:
         cursor.execute(
@@ -438,8 +443,16 @@ def register():
         )
         user_data = cursor.fetchone()
 
+        cursor.execute(
+            '''INSERT INTO bought_sticks (user_id, stick_id) 
+               VALUES (%s, (SELECT id FROM sticks WHERE stick = %s))''',
+            (user_data["id"], DEFAULT_STICK_URL)
+        )
+        db.commit()
+
     session["id"] = user_data["id"]
     session["username"] = username
+    session["stick_url"] = get_bought_sticks(session["id"])[0]["stick"]
 
     return redirect("/settings")
 
@@ -470,6 +483,7 @@ def login():
 
     session["username"] = user_data["username"]
     session["id"] = user_data["id"]
+    session["stick_url"] = get_bought_sticks(session["id"])[0]["stick"]
 
     return redirect("/settings")
 
