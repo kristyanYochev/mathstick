@@ -109,6 +109,7 @@ PIXI.loader
 function start_game(start_equations)
 {
     equations = start_equations
+    console.log(equations)
     displays_manager.render_text(equations[0].equation)
     start_time = Date.now()
     game_state = 'running'
