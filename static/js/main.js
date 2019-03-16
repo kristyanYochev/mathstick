@@ -16,6 +16,9 @@ var finish_button
 var start_time
 var time_taken
 var time_display
+var game_mode = document.getElementById('gamemode').value
+var socket
+var equations
 
 var uid
 var equation_id
@@ -103,6 +106,13 @@ PIXI.loader
     .load(init)
 
 ////////////////////////////////////////////////////////////
+function start_game(equations)
+{
+    equations = equations
+    start_time = Date.now()
+    game_state = 'running'
+}
+
 function finish_game()
 {
     if (check_if_game_finished())
@@ -177,23 +187,36 @@ function init()
     stage.addChild(time_display)
 
     ////////////////////////////////////////////////////////////
-    start_time = Date.now()
-    game_state = 'running'
-
     uid = document.getElementById("user_id").value
 
-    fetch('/get/equation', {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({id: uid})
-    })
-    .then(resp => resp.json())
-    .then(resp => {
-        displays_manager.render_text(resp.equation)
-        equation_id = resp.id
-    })
+    if (game_mode == 'singleplayer')
+    {
+        fetch('/get/equation', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id: uid})
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            displays_manager.render_text(resp.equation)
+            equation_id = resp.id
+        })
+    }
+    else
+    {
+        socket = io.connect(window.location.origin)
+        socket.on('connect', function() {
+            socket.emit('start_game', {user_id: uid})
+        })
+
+        socket.on('starting_game', function(data) {
+            equations = data.equations
+
+            start_game(equations)
+        })
+    }
 
     ////////////////////////////////////////////////////////////
     main_loop()
