@@ -147,8 +147,19 @@ def on_join_room(data):
 @socketio.on("start_game")
 def on_start_game(data):
     room_id = data["room_id"]
-    user_ids = data["user_ids"]
     equations_count = int(data["equations_count"])
+
+    user_ids = []
+    with db.cursor() as cursor:
+        cursor.execute(
+            "SELECT user_id FROM players WHERE room_id = %s",
+            (room_id)
+        )
+        user_ids_raw = cursor.fetchall()
+
+    for user in user_ids_raw:
+        user_ids.append(user["user_id"])
+
 
     equations = get_equations(equations_count, user_ids)
 
