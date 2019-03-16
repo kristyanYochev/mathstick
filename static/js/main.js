@@ -103,7 +103,7 @@ const MAP_SYMBOLS_TO_SEGMENTS = {
 ////////////////////////////////////////////////////////////
 PIXI.loader
     .add('background', '/static/images/green_background.png')
-    .add('matchstick', '/static/images/stick4.png')
+    .add('matchstick', sessionStorage.getItem('stick_url'))
     .add('check', '/static/images/finish_button.png')
     .add('reset', '/static/images/reload.png')
     .load(init)
