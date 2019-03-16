@@ -19,7 +19,6 @@ var time_display
 var game_mode = document.getElementById('gamemode').value
 var socket
 var equations
-
 var uid
 var equation_id
 
@@ -115,7 +114,7 @@ function start_game(equations)
 
 function finish_game()
 {
-    if (check_if_game_finished())
+    if (check_if_game_finished() && game_state != 'finished')
     {
         game_state = 'finished'
         
@@ -172,7 +171,7 @@ function init()
     var finish_scale = 200 / PIXI.loader.resources.check.texture.width
 
     finish_button.scale.set(finish_scale, finish_scale)
-    finish_button.position.set(CANVAS_WIDTH - 170, CANVAS_HEIGHT - 170)
+    finish_button.position.set(CANVAS_WIDTH - 200, CANVAS_HEIGHT - 170)
     finish_button.interactive = true
 
     finish_button.on('click', finish_game)
