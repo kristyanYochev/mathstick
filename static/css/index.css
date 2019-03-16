@@ -14,6 +14,8 @@ a{
     cursor: pointer;
 }
 
+
+
 .game_layout{
     display:flex;
     flex-direction: column;

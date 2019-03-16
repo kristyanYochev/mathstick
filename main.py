@@ -103,7 +103,6 @@ def get_points_and_coins_from_db(user_id):
 def on_create_room():
     json_data = request.get_json()
 
-    user_id = json_data["user_id"]
     max_players = json_data["max_players"]
 
     room_id = get_unique_id()
@@ -113,12 +112,6 @@ def on_create_room():
             '''INSERT INTO rooms (room_id, max_players) 
                VALUES (%s, %s)''',
             (room_id, max_players)
-        )
-
-        cursor.execute(
-            '''INSERT INTO players (room_id, user_id) 
-               VALUES (%s, %s)''',
-            (room_id, user_id)
         )
         db.commit()
 
