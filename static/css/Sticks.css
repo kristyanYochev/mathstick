@@ -1,13 +1,14 @@
 .shop_wrapper{
     display:flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
     width:100vw;
     height:100vh;
     background-image: url("../images/light-wood-table-texture_light_wood_grain_texture_wallmayacom_light_wooden_table_texture.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+    overflow-y:scroll!important;
 }
 
 .shop_wrapper > div{
@@ -16,25 +17,63 @@
     white-space: nowrap;
 }
 
-.shop_wrapper > div > *{
-    width:350px;
+.buy{
+    font-size:3rem;
+    background-color: rgba(255,255,255,0)!important;
+    border-radius:20px;
+    border:5px solid #5A5A5A;    
+    transition: 0.3s;
 }
 
-/* width */
+.shop_wrapper > div > *{
+    display:inline-block;
+    padding-bottom:20px;
+}
+
+.shop_wrapper > div > *:not(:first-child){
+    margin-left:200px;
+}
+
+.shop_wrapper > div > * > *{
+    display:block;
+}
+
+.shop_wrapper > div > * > img:nth-child(1){
+    width:100px;
+}
+
+.shop_wrapper > div > * > img:nth-child(2){
+    width:250px;
+}
+
 .shop_wrapper > div::-webkit-scrollbar {
+    height: 20px;
 }
 
 /* Track */
 .shop_wrapper > div::-webkit-scrollbar-track {
-background: #f1f1f1; 
+    background: transparent;
 }
 
 /* Handle */
 .shop_wrapper > div::-webkit-scrollbar-thumb {
-background: #888; 
+    background-image: url(../images/dd5gCKd.jpg);
+    border-radius: 100px;
 }
 
 /* Handle on hover */
 .shop_wrapper > div::-webkit-scrollbar-thumb:hover {
-background: #555; 
+    height:15px;
+}
+
+@media screen and (max-height: 425px){
+    .shop_wrapper > div > * > img:nth-child(1){
+        width:50px;
+    }
+    .shop_wrapper > div > * > img:nth-child(2){
+        width:130px;
+    }
+    .shop_wrapper > div > *:not(:first-child){
+        margin-left:100px;
+    }
 }
