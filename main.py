@@ -363,8 +363,7 @@ def create_room_page():
     return render_template(
         "CreateRoom.html", 
         name=session["username"], 
-        id=session["id"],
-        stick_url=session["stick_url"]
+        id=session["id"]
     )
 
 
@@ -373,8 +372,7 @@ def join_room_page():
     return render_template(
         "JoinRoom.html", 
         name=session["username"], 
-        id=session["id"],
-        stick_url=session["stick_url"]
+        id=session["id"]
     )
 
 
@@ -396,6 +394,7 @@ def settings():
     points_and_coins = get_points_and_coins_from_db(session["id"])
     return render_template(
         "index.html",
+        stick_url=session["stick_url"],
         points=points_and_coins["points"],
         coins=points_and_coins["coins"]
     )
