@@ -1,3 +1,11 @@
+@font-face {
+    font-family: blzee;
+    src: url("../fonts/blzee.ttf");
+}
+@font-face {
+    font-family: grafipaint;
+    src: url("../fonts/Grafipaint.ttf");
+}
 .create_room_wrapper{
     display:flex;
     flex-direction: row;
@@ -5,11 +13,17 @@
     align-items: center;
     width: 100vw;
     height: 100vh;
+    background-image: url("../images/27090724-blackboard-wallpapers.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .create_room_wrapper > *{
-    padding:50px 100px 50px 100px;
-    background-color: red;
+    padding:20px 40px 20px 40px;
+    color:white;
+    font-family: grafipaint;
+    border:3px dotted white;
 }
 
 #joined_players{
@@ -17,6 +31,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size:30px;
 }
 
 #joined_players > *{
@@ -28,6 +43,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size:35px;
 }
 
 .create_room_wrapper > div:nth-child(2) > *{
@@ -35,11 +51,18 @@
 }
 
 #maximum_players, #number_of_equations{
-    width:20px;
+    width:50px;
+    border:0;
+    color:white;
+    font-family: grafipaint;
+    font-size: 30px;
+    padding-left:30px;
+}
+
+#maximum_players::placeholder, #number_of_equations::placeholder{
+    color:white;
 }
 
 @media screen and (max-width: 768px){
-    .create_room_wrapper{
-        flex-direction: column;
-    }
+    
 }

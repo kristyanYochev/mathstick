@@ -77,6 +77,16 @@ a{
     right:0;
 }
 
+.player_menu{
+    height:100vh;
+    overflow: auto;
+    border-bottom-right-radius: 0px;
+}
+
+.player_menu > p{
+    text-align: center;
+    font-size:23px;
+}
 
 #rotate_screen{
     background-image: url("../images/asd.png");
