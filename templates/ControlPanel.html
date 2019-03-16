@@ -12,11 +12,11 @@
         <title>Control Panel</title>
     </head>
     <body>
-        <div class="panel">
+        <form acction="/control-panel" method="POST" class="panel">
             <h1>Add Equation</h1>
-            <input class="panel_field textfield" type="text" spellCheck="false" placeholder="Equation"/>
-            <input class="panel_field textfield" type="text" spellCheck="false" placeholder="Number of moves"/>
+            <input style="color: white" class="panel_field textfield" type="text" spellCheck="false" placeholder="Equation" name="equation"/>
+            <input style="color: white" class="panel_field textfield" type="text" spellCheck="false" placeholder="Number of moves" name="moves"/>
             <input class="button" type="submit" value="Add"/>
-        </div>
+        </form>
     </body>
 </html>
