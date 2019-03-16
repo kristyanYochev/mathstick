@@ -250,7 +250,7 @@ def register():
         if user_data is None:
             cursor.execute(
                 'INSERT INTO users (username, password, email) VALUES (%s, %s, %s)',
-                (username, sha256.hash(password), email)
+                (username, sha256.encrypt(password), email)
             )
             db.commit()
         else:
