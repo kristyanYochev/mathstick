@@ -256,6 +256,10 @@ def on_create_room(data):
 def index():
     return render_template("LoginRegister.html")
 
+@app.route("/create-room-page")
+def create_room_page():
+    return render_template("CreateRoom.html", name=session["username"], id=session["id"])
+
 
 @app.route("/register", methods=["POST"])
 def register():
