@@ -19,7 +19,16 @@ Table: sticks
 | id    | int(11)      | NO   | PRI | NULL    | auto_increment |
 | stick | varchar(256) | YES  |     | NULL    |                |
 | url   | varchar(256) | YES  |     | NULL    |                |
+| price | int(11)      | YES  |     | NULL    |                |
 +-------+--------------+------+-----+---------+----------------+
+
+Table: bought_sticks
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| user_id  | int(11) | YES  |     | NULL    |       |
+| stick_id | int(11) | YES  |     | NULL    |       |
++----------+---------+------+-----+---------+-------+
 
 Table: equations
 +----------+-------------+------+-----+---------+----------------+
