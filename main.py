@@ -124,6 +124,7 @@ def get_user_coins(user_id):
     return money
 
 def get_stick_price(stick_id):
+    print(stick_id)
     with db.cursor() as cursor:
         cursor.execute(
             '''SELECT price 
@@ -531,7 +532,7 @@ def sticks():
 
         if is_stick_bought(session["id"], stick_id) == False:
             money = get_user_coins(session["id"])
-            price = get_stick_price(session["id"])
+            price = get_stick_price(stick_id)
 
             if money >= price:
                 update_user_coins(session["id"], money - price)
