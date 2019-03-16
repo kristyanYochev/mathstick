@@ -102,7 +102,7 @@ const MAP_SYMBOLS_TO_SEGMENTS = {
 PIXI.loader
     .add('background', '/static/images/green_background.png')
     .add('matchstick', '/static/images/stick4.png')
-    .add('check', '/static/images/coins_broken_transperent.png')
+    .add('check', '/static/images/finish_button.png')
     .load(init)
 
 ////////////////////////////////////////////////////////////
@@ -180,7 +180,7 @@ function init()
     stage.addChild(finish_button)
 
     ////////////////////////////////////////////////////////////
-    time_display = new PIXI.Text('')
+    time_display = new PIXI.Text('', {fill: 0xd9b946})
     time_display.anchor.set(0.5, 0)
     time_display.position.set(CANVAS_WIDTH / 2, 0)
 
@@ -204,19 +204,21 @@ function init()
             equation_id = resp.id
         })
     }
-    else
-    {
-        socket = io.connect(window.location.origin)
-        socket.on('connect', function() {
-            socket.emit('start_game', {user_id: uid})
-        })
 
-        socket.on('starting_game', function(data) {
-            equations = data.equations
+    start_game([])
+    // else
+    // {
+    //     socket = io.connect(window.location.origin)
+    //     socket.on('connect', function() {
+    //         socket.emit('start_game', {user_id: uid})
+    //     })
 
-            start_game(equations)
-        })
-    }
+    //     socket.on('starting_game', function(data) {
+    //         equations = data.equations
+
+    //         start_game(equations)
+    //     })
+    // }
 
     ////////////////////////////////////////////////////////////
     main_loop()
