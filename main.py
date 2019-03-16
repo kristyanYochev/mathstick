@@ -136,6 +136,37 @@ def get_stick_price(stick_id):
     price = int(data["price"])
     return price
 
+def get_available_sticks(user_id):
+    with db.cursor() as cursor:
+        cursor.execute(
+            '''SELECT *
+               FROM sticks 
+               WHERE id NOT IN
+               (
+                   SELECT stick_id 
+                   FROM bought_sticks 
+                   WHERE user_id = %s
+               )''',
+            (user_id)
+        )
+        available_sticks = cursor.fetchall()
+
+    return available_sticks
+
+def get_bought_sticks(user_id):
+    with db.cursor() as cursor:
+        cursor.execute(
+            '''SELECT id, stick, url 
+               FROM sticks 
+               INNER JOIN bought_sticks 
+               ON sticks.id = bought_sticks.stick_id 
+               WHERE user_id = %s''',
+            (user_id)
+        )
+        bought_sticks = cursor.fetchall()
+
+    return bought_sticks
+
 def is_stick_bought(user_id, stick_id):
     with db.cursor() as cursor:
         cursor.execute(
@@ -269,6 +300,7 @@ def on_start_game(data):
 def on_finish_game(data):
     room_id = data["room_id"]
     user_id = data["user_id"]
+    username = data["username"]
     time = data["time"]
 
     with db.cursor() as cursor:
@@ -301,7 +333,7 @@ def on_finish_game(data):
     emit("finished_game", {"user_id": user_id, "time": time}, room=room_id)
 
     if current_finished == max_players:
-        emit("all_players_are_finished", room=room_id)
+        emit("all_players_are_finished", {"username": username}, room=room_id)
 
 
 @socketio.on("leave_room")
@@ -492,28 +524,33 @@ def completed():
     )
 
 
-@app.route("/buy_stick", methods=["POST"])
-def buy_stick():
-    json_data = request.get_json()
+@app.route("/sticks", methods=["GET", "POST"])
+def sticks():
+    if request.args.get("stick_id") is not None:
+        stick_id = request.args.get("stick_id")
 
-    user_id = json_data["user_id"]
-    stick_id = json_data["stick_id"]
+        if is_stick_bought(session["id"], stick_id) == False:
+            money = get_user_coins(session["id"])
+            price = get_stick_price(session["id"])
 
-    money = get_user_coins(user_id)
-    price = get_stick_price(stick_id)
+            if money >= price:
+                update_user_coins(session["id"], money - price)
 
-    if money >= price:
-        update_user_coins(user_id, money - price)
+                with db.cursor() as cursor:
+                    cursor.execute(
+                        '''INSERT INTO bought_sticks (user_id, stick_id) 
+                        VALUES (%s, %s)''',
+                        (session["id"], stick_id)
+                    )
 
-        with db.cursor() as cursor:
-            cursor.execute(
-                '''INSERT INTO bought_sticks (user_id, stick_id) 
-                   VALUES (%s, %s)'''
-            )
+    available_sticks = get_available_sticks(session["id"])
+    bought_sticks = get_bought_sticks(session["id"])
 
-    return jsonify(
-        success=1, 
-        coins= money - price
+    return render_template(
+        "Sticks.html", 
+        available_sticks=available_sticks,
+        bought_sticks=bought_sticks,
+        coins=get_user_coins(session["id"])
     )
 
 
@@ -531,24 +568,24 @@ def use_stick():
         return jsonify(success=1)
 
 
-@app.route("/get-bought-sticks", methods=["POST"])
-def get_bought_sticks():
-    json_data = request.get_json()
-    user_id = json_data["user_id"]
+# @app.route("/get-bought-sticks", methods=["POST"])
+# def get_bought_sticks():
+#     json_data = request.get_json()
+#     user_id = json_data["user_id"]
 
-    with db.cursor() as cursor:
-        cursor.execute(
-            '''SELECT id, stick, url 
-               FROM sticks 
-               INNER JOIN bought_sticks 
-               ON sticks.id = bought_sticks.stick_id 
-               WHERE user_id = %s''',
-            (user_id)
-        )
+#     with db.cursor() as cursor:
+#         cursor.execute(
+#             '''SELECT id, stick, url 
+#                FROM sticks 
+#                INNER JOIN bought_sticks 
+#                ON sticks.id = bought_sticks.stick_id 
+#                WHERE user_id = %s''',
+#             (user_id)
+#         )
 
-        bought_sticks = cursor.fetchall()
+#         bought_sticks = cursor.fetchall()
 
-    return jsonify(bought_sticks)
+#     return jsonify(bought_sticks)
 
 
 if __name__ == "__main__":
