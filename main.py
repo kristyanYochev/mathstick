@@ -334,7 +334,7 @@ def on_finish_game(data):
         )
         max_players = cursor.fetchone()["max_players"]
 
-    emit("finished_game", {"user_id": user_id, "time": time}, room=room_id)
+    emit("finished_game", {"user_id": user_id, "time": time, "username": username}, room=room_id)
 
     if current_finished == max_players:
         emit("all_players_are_finished", {"username": username}, room=room_id)
