@@ -1,0 +1,40 @@
+.shop_wrapper{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width:100vw;
+    height:100vh;
+    background-image: url("../images/light-wood-table-texture_light_wood_grain_texture_wallmayacom_light_wooden_table_texture.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.shop_wrapper > div{
+    overflow-x: auto;
+    overflow-y:hidden;
+    white-space: nowrap;
+}
+
+.shop_wrapper > div > *{
+    width:350px;
+}
+
+/* width */
+.shop_wrapper > div::-webkit-scrollbar {
+}
+
+/* Track */
+.shop_wrapper > div::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
+
+/* Handle */
+.shop_wrapper > div::-webkit-scrollbar-thumb {
+background: #888; 
+}
+
+/* Handle on hover */
+.shop_wrapper > div::-webkit-scrollbar-thumb:hover {
+background: #555; 
+}
