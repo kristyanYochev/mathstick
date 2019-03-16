@@ -27,6 +27,11 @@ class Match
 
     on_drag_start(event)
     {
+        if (game_state == 'finished')
+        {
+            return
+        }
+
         this.dragging = true
         this.drag_data = event.data
     }
@@ -35,8 +40,6 @@ class Match
     {
         this.dragging = false
         this.drag_data = null
-
-        check_if_game_finished()
     }
 
     on_drag_move()
