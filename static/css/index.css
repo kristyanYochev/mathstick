@@ -14,8 +14,6 @@ a{
     cursor: pointer;
 }
 
-
-
 .game_layout{
     display:flex;
     flex-direction: column;
@@ -27,6 +25,15 @@ a{
     background-image: url("../images/light-wood-table-texture_light_wood_grain_texture_wallmayacom_light_wooden_table_texture.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.back{
+    position:absolute;
+    top:0;
+    left:0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 #game > canvas{
@@ -60,13 +67,7 @@ a{
     transform: scale(1.1);
 }
 
-.index_layout > input:nth-child(2){
-    margin-top:100px;
-}
 
-.index_layout > input:nth-child(1), input:nth-child(3){
-    font-size: 1.7rem;
-}
 
 #logo{
     border:0!important;
@@ -80,7 +81,6 @@ a{
 }
 
 .player_menu{
-    height:100vh;
     overflow: auto;
     border-bottom-right-radius: 0px;
 }
@@ -100,20 +100,28 @@ a{
     display:none;
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 768px){
     .index_layout{
-        flex-direction: column;
-        justify-content: center;
-    }
-    .index_layout > input:nth-child(2){
-        margin:50px;
-
+        flex-direction: column!important;
+        justify-content: center!important;
     }
     .index_layout > *{
-        font-size:2rem;
+        font-size:2rem!important;
+        margin-top:40px;
     }
-    .index_layout > input:nth-child(1), input:nth-child(3){
-        font-size: 1.3rem;
+    #logo{
+        width:300px!important;
+    }
+}
+
+@media only screen and (max-width: 1024px){
+    .index_layout{
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+    .index_layout > *{
+        font-size:2rem!important;
+        margin-top:40px;
     }
     #logo{
         width:300px!important;
@@ -121,26 +129,15 @@ a{
 }
 
 @media only screen and (max-height: 425px){
-    .index_layout > *{
-        font-size:2rem;
+    .index_layout{
+        flex-direction: row!important;
+        justify-content: space-evenly!important;
     }
-    .index_layout > input:nth-child(1), input:nth-child(3){
-        font-size: 1.3rem;
+    .index_layout > *{
+        font-size:1.2rem!important;
     }
     #logo{
         width:250px!important;
         height:140px!important;
-    }
-}
-
-@media only screen and (max-width: 768px){
-    .index_layout > *{
-        font-size:2rem;
-    }
-    .index_layout > input:nth-child(1), input:nth-child(3){
-        font-size: 1.3rem;
-    }
-    #logo{
-        width:300px!important;
     }
 }

@@ -13,10 +13,12 @@ var game_state = 'waiting'
 var matches_manager
 var displays_manager
 var finish_button
+var undo_button
 var start_time
 var time_taken
 var time_display
 var game_mode = sessionStorage.getItem('game_mode')
+var moved = false
 var socket
 var equations
 var curr_equation_index = 0
@@ -103,16 +105,22 @@ PIXI.loader
     .add('background', '/static/images/green_background.png')
     .add('matchstick', '/static/images/stick4.png')
     .add('check', '/static/images/finish_button.png')
+    .add('reset', '/static/images/reload.png')
     .load(init)
 
 ////////////////////////////////////////////////////////////
 function start_game(start_equations)
 {
     equations = start_equations
-    console.log(equations)
     displays_manager.render_text(equations[0].equation)
     start_time = Date.now()
     game_state = 'running'
+}
+
+function undo()
+{
+    displays_manager.render_text(equations[curr_equation_index].equation)
+    moved = false
 }
 
 function finish_game()
@@ -153,6 +161,7 @@ function finish_game()
             else
             {
                 displays_manager.render_text(equations[curr_equation_index].equation)
+                moved = false
             }
         }
     }
@@ -189,6 +198,18 @@ function init()
     background.scale.set(bg_scale_x, bg_scale_y)
 
     stage.addChild(background)
+
+    ////////////////////////////////////////////////////////////
+    undo_button = new PIXI.Sprite(PIXI.loader.resources.reset.texture)
+    var undo_scale = 150 / PIXI.loader.resources.reset.texture.width
+    undo_button.anchor.set(1, 0)
+    undo_button.scale.set(undo_scale, undo_scale)
+    undo_button.position.set(CANVAS_WIDTH, 0)
+    undo_button.interactive = true
+
+    undo_button.on('click', undo)
+
+    stage.addChild(undo_button)
     
     ////////////////////////////////////////////////////////////
     finish_button = new PIXI.Sprite(PIXI.loader.resources.check.texture)
