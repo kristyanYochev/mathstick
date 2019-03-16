@@ -94,6 +94,22 @@ def get_points_and_coins_from_db(user_id):
 
     return points_and_coins
 
+def is_user_joined_room(room_id, user_id):
+    with db.cursor() as cursor:
+        cursor.execute(
+            '''SELECT * 
+               FROM players 
+               WHERE user_id = %s 
+                 AND room_id = %s''',
+            (user_id)
+        )
+        user = cursor.fetchone()
+
+    if user is None:
+        return False
+    else:
+        return True
+
 
 '''
 ---------- Sockets ----------
@@ -125,12 +141,13 @@ def on_join_room(data):
     user_id = data["user_id"]
 
     with db.cursor() as cursor:
-        cursor.execute(
-            '''INSERT INTO players (room_id, user_id) 
-               VALUES (%s, %s)''',
-            (room_id, user_id)
-        )
-        db.commit()
+        if is_user_joined_room(room_id, user_id) == False:
+            cursor.execute(
+                '''INSERT INTO players (room_id, user_id) 
+                VALUES (%s, %s)''',
+                (room_id, user_id)
+            )
+            db.commit()
 
         cursor.execute(
             '''SELECT username, user_id 
