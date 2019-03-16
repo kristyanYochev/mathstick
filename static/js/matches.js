@@ -44,6 +44,16 @@ class Match
 
     on_drag_end()
     {
+        if (game_state == 'finished')
+        {
+            return
+        }
+
+        if (!this.dragging)
+        {
+            return
+        }
+        
         this.dragging = false
         this.drag_data = null
 
@@ -57,6 +67,10 @@ class Match
 
     on_drag_move()
     {
+        if (game_state == 'finished')
+        {
+            return
+        }
         if (this.dragging)
         {
             var new_position = this.drag_data.getLocalPosition(this.parent)
