@@ -1,12 +1,17 @@
+var socket
+var players = []
+var max_players
+
 function create_room()
 {
-    var uid = ""
-    var max_players = ""
+    var uid = document.getElementById('uid').value
+    var username = document.getElementById('username').value
+    max_players = document.getElementById('maximum_players').value
     
     fetch('/create_room', {
         method: 'POST',
         headers: {
-            'Contnet-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             user_id: uid,
@@ -15,6 +20,26 @@ function create_room()
     })
     .then(resp => resp.json())
     .then(resp => {
-        document.getElementById().innerText = resp.room_id
+        document.getElementById('room_id').innerText = resp.room_id
+
+        socket = io.connect(window.location.origin)
+        socket.on('connect', function() {
+            socket.emit('join_room', {
+                room_id: resp.room_id,
+                user_id: uid,
+                username: username
+            })
+        })
+
+        socket.on('joined_room', function(user) {
+            players.push(user)
+
+            var playerElement = document.createElement('span')
+            playerElement.innerText = user.username
+
+            document.getElementById('joined_players').appendChild(playerElement)
+        })
     })
 }
+
+document.getElementById('create_room').addEventListener('click', create_room)
