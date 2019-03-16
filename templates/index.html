@@ -21,7 +21,7 @@
     </div>
     <input type="hidden" id="fallback_stick_url" value="{{ stick_url }}">
     <script>
-if (sessionStorage.getItem('stick_url')[0] != '/')  // If stick_url is not set
+if (!sessionStorage.getItem('stick_url') || sessionStorage.getItem('stick_url')[0] != '/')  // If stick_url is not set
 {
     sessionStorage.setItem('stick_url', document.getElementById('fallback_stick_url').value)
 }
