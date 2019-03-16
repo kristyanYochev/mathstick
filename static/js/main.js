@@ -180,7 +180,7 @@ function finish_game()
                 socket.emit('finish_game', {
                     room_id: sessionStorage.getItem('room_id'),
                     user_id: uid,
-                    username: username,
+                    username: document.getElementById('username').value,
                     time: time_taken / 1000
                 })
             }
@@ -309,7 +309,7 @@ function init()
 
         socket.on('finished_game', function(data) {
             var player_element = document.createElement('p')
-            player_element.innerText = data.user_id + ' - ' + data.time + 's'
+            player_element.innerText = data.username + ' - ' + data.time + 's'
 
             document.getElementById('players').appendChild(player_element)
         })
