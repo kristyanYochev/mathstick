@@ -16,7 +16,9 @@ var finish_button
 var start_time
 var time_taken
 var time_display
-
+var game_mode = document.getElementById('gamemode').value
+var socket
+var equations
 var uid
 var equation_id
 
@@ -99,13 +101,20 @@ const MAP_SYMBOLS_TO_SEGMENTS = {
 PIXI.loader
     .add('background', '/static/images/green_background.png')
     .add('matchstick', '/static/images/stick4.png')
-    .add('check', '/static/images/coins_broken_transperent.png')
+    .add('check', '/static/images/finish_button.png')
     .load(init)
 
 ////////////////////////////////////////////////////////////
+function start_game(equations)
+{
+    equations = equations
+    start_time = Date.now()
+    game_state = 'running'
+}
+
 function finish_game()
 {
-    if (check_if_game_finished())
+    if (check_if_game_finished() && game_state != 'finished')
     {
         game_state = 'finished'
         
@@ -162,7 +171,7 @@ function init()
     var finish_scale = 200 / PIXI.loader.resources.check.texture.width
 
     finish_button.scale.set(finish_scale, finish_scale)
-    finish_button.position.set(CANVAS_WIDTH - 170, CANVAS_HEIGHT - 170)
+    finish_button.position.set(CANVAS_WIDTH - 200, CANVAS_HEIGHT - 170)
     finish_button.interactive = true
 
     finish_button.on('click', finish_game)
@@ -170,30 +179,45 @@ function init()
     stage.addChild(finish_button)
 
     ////////////////////////////////////////////////////////////
-    time_display = new PIXI.Text('')
+    time_display = new PIXI.Text('', {fill: 0xd9b946})
     time_display.anchor.set(0.5, 0)
     time_display.position.set(CANVAS_WIDTH / 2, 0)
 
     stage.addChild(time_display)
 
     ////////////////////////////////////////////////////////////
-    start_time = Date.now()
-    game_state = 'running'
-
     uid = document.getElementById("user_id").value
 
-    fetch('/get/equation', {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({id: uid})
-    })
-    .then(resp => resp.json())
-    .then(resp => {
-        displays_manager.render_text(resp.equation)
-        equation_id = resp.id
-    })
+    if (game_mode == 'singleplayer')
+    {
+        fetch('/get/equation', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id: uid})
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            displays_manager.render_text(resp.equation)
+            equation_id = resp.id
+        })
+    }
+
+    start_game([])
+    // else
+    // {
+    //     socket = io.connect(window.location.origin)
+    //     socket.on('connect', function() {
+    //         socket.emit('start_game', {user_id: uid})
+    //     })
+
+    //     socket.on('starting_game', function(data) {
+    //         equations = data.equations
+
+    //         start_game(equations)
+    //     })
+    // }
 
     ////////////////////////////////////////////////////////////
     main_loop()

@@ -34,21 +34,49 @@ class Match
 
         this.dragging = true
         this.drag_data = event.data
+
+        this.prev_x = this.position.x
+        this.prev_y = this.position.y
+        this.prev_angle = this.rotation
+
+        this.on_segment = false
     }
 
     on_drag_end()
     {
+        if (game_state == 'finished')
+        {
+            return
+        }
+
+        if (!this.dragging)
+        {
+            return
+        }
+        
         this.dragging = false
         this.drag_data = null
+
+        if (!this.on_segment)
+        {
+            this.position.x = this.prev_x
+            this.position.y = this.prev_y
+            this.rotation = this.prev_angle
+        }
     }
 
     on_drag_move()
     {
+        if (game_state == 'finished')
+        {
+            return
+        }
         if (this.dragging)
         {
             var new_position = this.drag_data.getLocalPosition(this.parent)
             this.position.x = new_position.x
             this.position.y = new_position.y
+            this.on_segment = false
 
             for (var display of displays_manager.displays)
             {
@@ -62,6 +90,7 @@ class Match
                         this.position.x = segment.x
                         this.position.y = segment.y
                         this.rotation = segment.angle
+                        this.on_segment = true
 
                         return
                     }
