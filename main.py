@@ -495,7 +495,10 @@ def buy_stick():
                    VALUES (%s, %s)'''
             )
 
-    return jsonify(success=1)
+    return jsonify(
+        success=1, 
+        coins= money - price
+    )
 
 
 if __name__ == "__main__":
