@@ -56,6 +56,7 @@
     color:white;
     font-family: grafipaint;
     font-size: 30px;
+    padding-left:30px;
 }
 
 #maximum_players::placeholder, #number_of_equations::placeholder{
