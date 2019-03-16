@@ -107,7 +107,6 @@ def on_create_room():
     max_players = json_data["max_players"]
 
     room_id = get_unique_id()
-    join_room(room_id)
 
     with db.cursor() as cursor:
         cursor.execute(
