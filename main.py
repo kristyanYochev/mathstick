@@ -109,6 +109,32 @@ def update_points_and_coins_in_db(user_id, time):
 
 #     emit("created_room", {"room_id": room_id}, room=room_id)
 
+@app.route("/craete_room", methods=["POST"])
+def on_create_room(data):
+    json_data = request.get_json()
+
+    user_id = json_data["user_id"]
+    max_players = json_data["max_players"]
+
+    room_id = get_unique_id()
+    join_room(room_id)
+
+    with db.cursor() as cursor:
+        cursor.execute(
+            '''INSERT INTO rooms (room_id, max_players) 
+               VALUES (%s, %s)''',
+            (room_id, max_players)
+        )
+
+        cursor.execute(
+            '''INSERT INTO players (room_id, user_id) 
+               VALUES (%s, %s)''',
+            (room_id, user_id)
+        )
+        db.commit()
+
+    return jsonify(room_id=room_id)
+
 
 @socketio.on("join_room")
 def on_join_room(data):
@@ -225,33 +251,6 @@ def on_leave_room(data):
 ---------- Routes ----------
 '''
 
-@app.route("/craete_room", methods=["POST"])
-def on_create_room(data):
-    json_data = request.get_json()
-
-    user_id = json_data["user_id"]
-    max_players = json_data["max_players"]
-
-    room_id = get_unique_id()
-    join_room(room_id)
-
-    with db.cursor() as cursor:
-        cursor.execute(
-            '''INSERT INTO rooms (room_id, max_players) 
-               VALUES (%s, %s)''',
-            (room_id, max_players)
-        )
-
-        cursor.execute(
-            '''INSERT INTO players (room_id, user_id) 
-               VALUES (%s, %s)''',
-            (room_id, user_id)
-        )
-        db.commit()
-
-    return jsonify(room_id=room_id)
-
-
 @app.route("/")
 def index():
     return render_template("LoginRegister.html")
@@ -339,9 +338,9 @@ def login():
     return redirect("/settings")
 
 
-@app.route("/game/<string:mode>")
+@app.route("/game")
 def game(mode):
-    return render_template("game.html", name=session["username"], id=session["id"], mode=mode)
+    return render_template("game.html", name=session["username"], id=session["id"])
 
 @app.route("/settings", methods=["GET", "POST"])
 def settings():
