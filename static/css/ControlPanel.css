@@ -1,0 +1,18 @@
+.panel{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-image:url("https://i.imgur.com/dd5gCKd.jpg");
+    color:white!important;
+}
+
+.panel > *{
+    margin-top:25px;
+    font-size: 25px;
+}
+
+.panel > input[type=submit] {
+}

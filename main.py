@@ -8,10 +8,10 @@ from passlib.hash import sha256_crypt as sha256
 from config import DATABASE_HOST, \
     DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE
 
-# Sockets
+# For Sockets
 from flask_socketio import SocketIO, join_room, leave_room, emit
 
-# Utils
+# For Utils
 from validate_email import validate_email
 import random
 import uuid
@@ -57,33 +57,55 @@ def get_equations(number_of_equations, user_ids):
 
     return equations
 
+def calculate_points_and_coins(time):
+    multiplier = 0
+
+    if time < 60:
+        multiplier = 60 - time
+
+    return {
+        "points": int(multiplier * 10 + 5),
+        "coins": int(multiplier * 1.5)
+    }
+
+def update_points_and_coins_in_db(user_id, time):
+    points_and_coins = calculate_points_and_coins(time)
+
+    with db.cursor() as cursor:
+        cursor.execute(
+            "UPDATE users SET points = points + %s, coins = coins + %s WHERE id = %s",
+            (points_and_coins["points"],
+             points_and_coins["coins"],
+             user_id)
+        )
+        db.commit()
 
 '''
 ---------- Sockets ----------
 '''
 
-@socketio.on("craete_room")
-def on_create_room(data):
-    room_id = get_unique_id()
+# @socketio.on("craete_room")
+# def on_create_room(data):
+#     room_id = get_unique_id()
 
-    user_id = data["user_id"]
-    max_players = data["max_players"]
+#     user_id = data["user_id"]
+#     max_players = data["max_players"]
 
-    join_room(room_id)
+#     join_room(room_id)
 
-    with db.cursor() as cursor:
-        cursor.execute(
-            'INSERT INTO rooms (room_id, max_players) VALUES (%s, %s)',
-            (room_id, max_players)
-        )
+#     with db.cursor() as cursor:
+#         cursor.execute(
+#             'INSERT INTO rooms (room_id, max_players) VALUES (%s, %s)',
+#             (room_id, max_players)
+#         )
 
-        cursor.execute(
-            'INSERT INTO players (room_id, user_id) VALUES (%s, %s)',
-            (room_id, user_id)
-        )
-        db.commit()
+#         cursor.execute(
+#             'INSERT INTO players (room_id, user_id) VALUES (%s, %s)',
+#             (room_id, user_id)
+#         )
+#         db.commit()
 
-    emit("created_room", {"room_id": room_id}, room=room_id)
+#     emit("created_room", {"room_id": room_id}, room=room_id)
 
 
 @socketio.on("join_room")
@@ -125,8 +147,19 @@ def on_join_room(data):
 @socketio.on("start_game")
 def on_start_game(data):
     room_id = data["room_id"]
-    user_ids = data["user_ids"]
     equations_count = int(data["equations_count"])
+
+    user_ids = []
+    with db.cursor() as cursor:
+        cursor.execute(
+            "SELECT user_id FROM players WHERE room_id = %s",
+            (room_id)
+        )
+        user_ids_raw = cursor.fetchall()
+
+    for user in user_ids_raw:
+        user_ids.append(user["user_id"])
+
 
     equations = get_equations(equations_count, user_ids)
 
@@ -175,6 +208,31 @@ def on_leave_room(data):
 ---------- Routes ----------
 '''
 
+@app.route("/craete_room", methods=["POST"])
+def on_create_room(data):
+    json_data = request.get_json()
+
+    user_id = json_data["user_id"]
+    max_players = json_data["max_players"]
+
+    room_id = get_unique_id()
+    join_room(room_id)
+
+    with db.cursor() as cursor:
+        cursor.execute(
+            'INSERT INTO rooms (room_id, max_players) VALUES (%s, %s)',
+            (room_id, max_players)
+        )
+
+        cursor.execute(
+            'INSERT INTO players (room_id, user_id) VALUES (%s, %s)',
+            (room_id, user_id)
+        )
+        db.commit()
+
+    return jsonify(room_id=room_id)
+
+
 @app.route("/")
 def index():
     return render_template("LoginRegister.html")
@@ -203,7 +261,7 @@ def register():
         if user_data is None:
             cursor.execute(
                 'INSERT INTO users (username, password, email) VALUES (%s, %s, %s)',
-                (username, sha256.hash(password), email)
+                (username, sha256.encrypt(password), email)
             )
             db.commit()
         else:
@@ -284,8 +342,9 @@ def completed():
     equation_id = json_data["equation_id"]
     time = json_data["time"]
 
+    update_points_and_coins_in_db(user_id, time)
+
     with db.cursor() as cursor:
-        # TODO: Add time to table and use it
         cursor.execute(
             'INSERT INTO completed (user_id, equation_id) VALUES (%s, %s)',
             (user_id, equation_id)
