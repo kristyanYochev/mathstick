@@ -73,7 +73,9 @@ def update_points_and_coins_in_db(user_id, time):
 
     with db.cursor() as cursor:
         cursor.execute(
-            "UPDATE users SET points = points + %s, coins = coins + %s WHERE id = %s",
+            '''UPDATE users 
+               SET points = points + %s, coins = coins + %s 
+               WHERE id = %s''',
             (points_and_coins["points"],
              points_and_coins["coins"],
              user_id)
@@ -116,19 +118,24 @@ def on_join_room(data):
 
     with db.cursor() as cursor:
         cursor.execute(
-            'INSERT INTO players (room_id, user_id) VALUES (%s, %s)',
+            '''INSERT INTO players (room_id, user_id) 
+               VALUES (%s, %s)''',
             (room_id, user_id)
         )
         db.commit()
 
         cursor.execute(
-            'SELECT COUNT(*) AS count FROM players WHERE room_id = %s',
+            '''SELECT COUNT(*) AS count 
+               FROM players 
+               WHERE room_id = %s''',
             (room_id)
         )
         current_players = cursor.fetchone()["count"]
 
         cursor.execute(
-            'SELECT max_players AS count FROM rooms WHERE room_id = %s',
+            '''SELECT max_players 
+               FROM rooms 
+               WHERE room_id = %s''',
             (room_id)
         )
         max_players = cursor.fetchone()["max_players"]
@@ -152,7 +159,9 @@ def on_start_game(data):
     user_ids = []
     with db.cursor() as cursor:
         cursor.execute(
-            "SELECT user_id FROM players WHERE room_id = %s",
+            '''SELECT user_id 
+               FROM players 
+               WHERE room_id = %s''',
             (room_id)
         )
         user_ids_raw = cursor.fetchall()
@@ -174,19 +183,27 @@ def on_finish_game(data):
 
     with db.cursor() as cursor:
         cursor.execute(
-            "UPDATE players SET time_finished = %s WHERE room_id = %s AND user_id = %s",
+            '''UPDATE players 
+               SET time_finished = %s 
+               WHERE room_id = %s 
+                 AND user_id = %s''',
             (time, room_id, user_id)
         )
         db.commit()
 
         cursor.execute(
-            "select COUNT(*) AS count players WHERE room_id = %s AND time_finished != 0",
+            '''SELECT COUNT(*) AS count 
+               FROM players 
+               WHERE room_id = %s 
+                 AND time_finished != 0''',
             (room_id)
         )
         current_finished = cursor.fetchone()["count"]
 
         cursor.execute(
-            'SELECT max_players AS count FROM rooms WHERE room_id = %s',
+            '''SELECT max_players 
+               FROM rooms 
+               WHERE room_id = %s''',
             (room_id)
         )
         max_players = cursor.fetchone()["max_players"]
@@ -220,12 +237,14 @@ def on_create_room(data):
 
     with db.cursor() as cursor:
         cursor.execute(
-            'INSERT INTO rooms (room_id, max_players) VALUES (%s, %s)',
+            '''INSERT INTO rooms (room_id, max_players) 
+               VALUES (%s, %s)''',
             (room_id, max_players)
         )
 
         cursor.execute(
-            'INSERT INTO players (room_id, user_id) VALUES (%s, %s)',
+            '''INSERT INTO players (room_id, user_id) 
+               VALUES (%s, %s)''',
             (room_id, user_id)
         )
         db.commit()
@@ -253,14 +272,18 @@ def register():
 
     with db.cursor() as cursor:
         cursor.execute(
-            'SELECT * FROM users WHERE username = %s OR email = %s',
+            '''SELECT * 
+               FROM users 
+               WHERE username = %s 
+                  OR email = %s''',
             (username, email)
         )
         user_data = cursor.fetchone()
 
         if user_data is None:
             cursor.execute(
-                'INSERT INTO users (username, password, email) VALUES (%s, %s, %s)',
+                '''INSERT INTO users (username, password, email) 
+                   VALUES (%s, %s, %s)''',
                 (username, sha256.encrypt(password), email)
             )
             db.commit()
@@ -268,7 +291,10 @@ def register():
             return render_template("LoginRegister.html", register_error=INVALID_USERNAME_OR_EMAIL_ERROR)
 
         cursor.execute(
-            'SELECT * FROM users WHERE username = %s OR email = %s',
+            '''SELECT * 
+               FROM users 
+               WHERE username = %s 
+                  OR email = %s''',
             (username, email)
         )
         user_data = cursor.fetchone()
@@ -289,7 +315,9 @@ def login():
 
     with db.cursor() as cursor:
         cursor.execute(
-            'SELECT * FROM users WHERE email = %s',
+            '''SELECT * 
+               FROM users 
+               WHERE email = %s''',
             (email)
         )
 
@@ -326,7 +354,15 @@ def get_equation():
 
     with db.cursor() as cursor:
         cursor.execute(
-            'SELECT * FROM equations WHERE id NOT IN (SELECT equation_id FROM completed WHERE user_id = %s) ORDER BY RAND() LIMIT 1',
+            '''SELECT * 
+               FROM equations 
+               WHERE id NOT IN 
+               (
+                   SELECT equation_id 
+                   FROM completed 
+                   WHERE user_id = %s
+               ) 
+               ORDER BY RAND() LIMIT 1''',
             (id)
         )
 
@@ -346,7 +382,8 @@ def completed():
 
     with db.cursor() as cursor:
         cursor.execute(
-            'INSERT INTO completed (user_id, equation_id) VALUES (%s, %s)',
+            '''INSERT INTO completed (user_id, equation_id) 
+               VALUES (%s, %s)''',
             (user_id, equation_id)
         )
 
