@@ -82,34 +82,24 @@ def update_points_and_coins_in_db(user_id, time):
         )
         db.commit()
 
+def get_points_and_coins_from_db(user_id):
+    with db.cursor() as cursor:
+        cursor.execute(
+            '''SELECT points, coins 
+               FROM users 
+               WHERE id = %s''',
+            (user_id)
+        )
+        points_and_coins = cursor.fetchone()
+
+    return points_and_coins
+
+
 '''
 ---------- Sockets ----------
 '''
 
-# @socketio.on("craete_room")
-# def on_create_room(data):
-#     room_id = get_unique_id()
-
-#     user_id = data["user_id"]
-#     max_players = data["max_players"]
-
-#     join_room(room_id)
-
-#     with db.cursor() as cursor:
-#         cursor.execute(
-#             'INSERT INTO rooms (room_id, max_players) VALUES (%s, %s)',
-#             (room_id, max_players)
-#         )
-
-#         cursor.execute(
-#             'INSERT INTO players (room_id, user_id) VALUES (%s, %s)',
-#             (room_id, user_id)
-#         )
-#         db.commit()
-
-#     emit("created_room", {"room_id": room_id}, room=room_id)
-
-@app.route("/craete_room", methods=["POST"])
+@app.route("/create_room", methods=["POST"])
 def on_create_room(data):
     json_data = request.get_json()
 
@@ -195,7 +185,6 @@ def on_start_game(data):
     for user in user_ids_raw:
         user_ids.append(user["user_id"])
 
-
     equations = get_equations(equations_count, user_ids)
 
     emit("starting_game", {"equations": equations}, room=room_id)
@@ -251,14 +240,44 @@ def on_leave_room(data):
 ---------- Routes ----------
 '''
 
+# ---------- Simple Routes ----------
+
 @app.route("/")
 def index():
     return render_template("LoginRegister.html")
 
+
 @app.route("/create-room-page")
 def create_room_page():
-    return render_template("CreateRoom.html", name=session["username"], id=session["id"])
+    return render_template(
+        "CreateRoom.html", 
+        name=session["username"], 
+        id=session["id"]
+    )
 
+
+@app.route("/game")
+def game():
+    points_and_coins = get_points_and_coins_from_db(session["id"])
+    return render_template(
+        "game.html", 
+        name=session["username"], 
+        id=session["id"],
+        points=points_and_coins["points"],
+        coins=points_and_coins["coins"]
+    )
+
+
+@app.route("/settings", methods=["GET"])
+def settings():
+    points_and_coins = get_points_and_coins_from_db(session["id"])
+    return render_template(
+        "index.html",
+        points=points_and_coins["points"],
+        coins=points_and_coins["coins"]
+    )
+
+# ---------- Complex Routes ----------
 
 @app.route("/register", methods=["POST"])
 def register():
@@ -338,19 +357,6 @@ def login():
     return redirect("/settings")
 
 
-@app.route("/game")
-def game():
-    return render_template("game.html", name=session["username"], id=session["id"])
-
-
-@app.route("/settings", methods=["GET", "POST"])
-def settings():
-    if request.method == "GET":
-        return render_template("index.html")
-    else:
-        return redirect("/game/singleplayer")
-
-
 @app.route("/get/equation", methods=["POST"])
 def get_equation():
     json_data = request.get_json()
@@ -393,7 +399,13 @@ def completed():
 
         db.commit()
     
-    return jsonify(success=1)
+    points_and_coins = get_points_and_coins_from_db(session["id"])
+
+    return jsonify(
+        success=1,
+        points=points_and_coins["points"],
+        coins=points_and_coins["coins"]
+    )
 
 
 if __name__ == "__main__":
