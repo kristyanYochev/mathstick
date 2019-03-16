@@ -94,6 +94,58 @@ def get_points_and_coins_from_db(user_id):
 
     return points_and_coins
 
+def is_user_joined_room(room_id, user_id):
+    with db.cursor() as cursor:
+        cursor.execute(
+            '''SELECT * 
+               FROM players 
+               WHERE user_id = %s 
+                 AND room_id = %s''',
+            (user_id)
+        )
+        user = cursor.fetchone()
+
+    if user is None:
+        return False
+    else:
+        return True
+
+def get_user_coins(user_id):
+    with db.cursor() as cursor:
+        cursor.execute(
+            '''SELECT coins 
+               FROM users 
+               WHERE id = %s''',
+            (user_id)
+        )
+        data = cursor.fetchone()
+
+    money = int(data["coins"])
+    return money
+
+def get_stick_price(stick_id):
+    with db.cursor() as cursor:
+        cursor.execute(
+            '''SELECT price 
+               FROM sticks 
+               WHERE id = %s''',
+            (stick_id)
+        )
+        data = cursor.fetchone()
+
+    price = int(data["price"])
+    return price
+
+def update_user_coins(user_id, coins):
+    with db.cursor() as cursor:
+        cursor.execute(
+            '''UPDATE users 
+               SET coins = %s 
+               WHERE id = %s''',
+            (coins, user_id)
+        )
+        db.commit()
+
 
 '''
 ---------- Sockets ----------
@@ -125,12 +177,13 @@ def on_join_room(data):
     user_id = data["user_id"]
 
     with db.cursor() as cursor:
-        cursor.execute(
-            '''INSERT INTO players (room_id, user_id) 
-               VALUES (%s, %s)''',
-            (room_id, user_id)
-        )
-        db.commit()
+        if is_user_joined_room(room_id, user_id) == False:
+            cursor.execute(
+                '''INSERT INTO players (room_id, user_id) 
+                VALUES (%s, %s)''',
+                (room_id, user_id)
+            )
+            db.commit()
 
         cursor.execute(
             '''SELECT username, user_id 
@@ -421,6 +474,28 @@ def completed():
         points=points_and_coins["points"],
         coins=points_and_coins["coins"]
     )
+
+
+@app.route("/buy_stick")
+def buy_stick():
+    json_data = request.get_json()
+
+    user_id = json_data["user_id"]
+    stick_id = json_data["stick_id"]
+
+    money = get_user_coins(user_id)
+    price = get_stick_price(stick_id)
+
+    if money >= price:
+        update_user_coins(user_id, money - price)
+
+        with db.cursor() as cursor:
+            cursor.execute(
+                '''INSERT INTO bought_sticks (user_id, stick_id) 
+                   VALUES (%s, %s)'''
+            )
+
+    return jsonify(success=1)
 
 
 if __name__ == "__main__":
