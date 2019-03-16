@@ -1,0 +1,112 @@
+@font-face {
+    font-family: blzee;
+    src: url("../fonts/blzee.ttf");
+}
+@font-face {
+    font-family: grafipaint;
+    src: url("../fonts/Grafipaint.ttf");
+}
+.create_room_wrapper{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../images/27090724-blackboard-wallpapers.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.create_room_wrapper > *{
+    padding:20px 40px 20px 40px;
+    color:white;
+    font-family: grafipaint;
+    border:3px dotted white;
+}
+
+#joined_players{
+    font-size:30px;
+    overflow-y: auto;
+}
+
+#joined_players > *{
+    display:block;
+    margin-top:20px;
+}
+
+.create_room_wrapper > div:nth-child(2){
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size:35px;
+}
+
+.create_room_wrapper > div:nth-child(2) > input{
+    font-size:1.8rem;
+    background-color: rgba(255,255,255,0)!important;
+    border:2px dotted white; 
+    font-family: grafipaint;   
+    color:white;
+    transition: 0.3s;
+}
+
+.create_room_wrapper > div:nth-child(2) > input:hover{
+    font-size:2rem;
+}
+
+.create_room_wrapper > div:nth-child(2) > *{
+    padding:10px;
+}
+
+#maximum_players::-webkit-inner-spin-button, #number_of_equations::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+#maximum_players, #number_of_equations, #join_id{
+    width:50px;
+    border:0;
+    color:white;
+    font-family: grafipaint;
+    font-size: 30px;
+    padding-left:30px;
+}
+
+#maximum_players::placeholder, #number_of_equations::placeholder, #join_id::placeholder{
+    color:white;
+}
+
+#join_id{
+    width:auto;
+    padding-left:0px;
+}
+
+#join_id::placeholder{
+    text-align: center;
+}
+
+@media only screen and (max-height: 425px){
+    .create_room_wrapper{
+        flex-direction: row!important;
+    }
+    .create_room_wrapper > div:nth-child(2){
+        font-size:25px!important;
+    }
+    #joined_players{
+        max-width: 200px!important;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .create_room_wrapper{
+        flex-direction: column;
+    }
+    .create_room_wrapper > div:nth-child(2){
+        font-size:25px;
+    }
+    #joined_players{
+        max-height: 200px;
+    }
+}
