@@ -31,13 +31,20 @@ function create_room()
             })
         })
 
-        socket.on('joined_room', function(user) {
-            players.push(user)
+        socket.on('joined_room', function(data) {
+            players = data.current_players
 
-            var playerElement = document.createElement('span')
-            playerElement.innerText = user.username
+            var joined_players_element = document.getElementById('joined_players')
+            joined_players_element.innerHTML = ''
 
-            document.getElementById('joined_players').appendChild(playerElement)
+            for (var player of players)
+            {
+                var playerElement = document.createElement('span')
+                playerElement.innerText = player.username
+    
+                joined_players_element.appendChild(playerElement)
+            }
+
         })
     })
     document.getElementById('create_room').disabled = true

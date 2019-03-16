@@ -18,9 +18,12 @@
             </div>
             <div>
                 ID: <span><input id="join_id" class="textfield" type="text" placeholder="Enter ID here" spellCheck="false"/></span>
-                <input id="join_room" class="button" type="button" value="Join Room"/>
+                <input id="join_room" class="button" type="button" value="Join Room" onclick="join_room()"/>
             </div>
         </div>
-        
+        <input type="hidden" id="uid" value="{{ id }}">
+        <input type="hidden" id="username" value="{{ name }}">
+        <script src="/static/lib/socket.io.js"></script>
+        <script src="/static/js/join_room.js"></script>
     </body>
 </html>

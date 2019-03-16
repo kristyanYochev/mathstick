@@ -13,9 +13,9 @@
     <div id="content">
         <img id="logo" src="http://diysolarpanelsv.com/images/example-13.jpg" alt="logo"/>
         <div class="index_layout">
-            <input class="button" type="button" value="CREATE ROOM" onclick="location.href = '/create-room-page'"/>
+            <input class="button" type="button" value="CREATE ROOM" onclick="on_create_room_click()"/>
             <input class="button" type="button" value="SINGLEPLAYER" onclick="on_singleplayer_click()"/>
-            <input class="button" type="button" value="JOIN ROOM" onclick="location.href = '/join-room-page'"/>
+            <input class="button" type="button" value="JOIN ROOM" onclick="on_join_room_click()"/>
         </div>
     </div>
     <script>
@@ -23,6 +23,18 @@ function on_singleplayer_click()
 {
     sessionStorage.setItem('game_mode', 'singleplayer')
     location.href = '/game'
+}
+
+function on_create_room_click()
+{
+    sessionStorage.setItem('game_mode', 'multiplayer')
+    location.href = '/create-room-page'
+}
+
+function on_join_room_click()
+{
+    sessionStorage.setItem('game_mode', 'multiplayer')
+    location.href = '/join-room-page'
 }
     </script>
 </body>
