@@ -9,3 +9,6 @@ DATABASE_HOST = 'localhost'
 DATABASE_USER = 'root'
 DATABASE_PASSWORD = ''
 DATABASE_DATABASE = 'sticks'
+
+# Default values
+DEFAULT_STICK_URL = '/static/images/stick4.png'
