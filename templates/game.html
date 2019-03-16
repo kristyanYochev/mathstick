@@ -12,7 +12,7 @@
 <body>
     <div id="content">
         <div onClick="show_drawer()" class="drawer_corner">
-
+            
             <div class="drawer_icon">
                 <span class="opened"></span>
                 <span class="opened"></span>
@@ -22,6 +22,7 @@
             </div>
         </div>
         <div class="game_layout">
+            <input class="back button" type="button" value="<=="/ onclick="location.href = '/settings'">
             <div id="game">
 
             </div>
@@ -40,6 +41,11 @@
     <script src="/static/js/main.js"></script>
     <script>
         (function() {
+            // if(sessionStorage.getItem('game_mode')=="singleplayer"){
+            //     document.getElementsByClassName("drawer_corner")[0].style.display = "none"
+            // } else {
+            //     document.getElementsByClassName("drawer_corner")[0].style.display = "block"
+            // }
             if(window.innerHeight > window.innerWidth){
                 document.getElementById("content").style.display = "none"
                 document.getElementById("rotate_screen").style.display = "block"
@@ -52,7 +58,7 @@
                 } else {
                     document.getElementById("content").style.display = "block"
                     document.getElementById("rotate_screen").style.display = "none"
-                    document.getElementsByClassName("drawer_menu")[0].style.transform = "translateX(-100%)"
+                    document.getElementsByClassName("drawer_menu")[0].style.transform = "translateX(100%)"
                     for(var i=0;i<drawer.children.length;i++){
                         drawer.children[i].classList.remove("opened")
                         drawer.children[i].classList.add("closed")
@@ -72,10 +78,10 @@
                     drawer.children[i].classList.add("closed")
                 }
             }
-            if(drawer_menu.style.transform == "translateX(-100%)"){
+            if(drawer_menu.style.transform == "translateX(100%)"){
                 drawer_menu.style.transform = "translateX(0)"
             } else{
-                drawer_menu.style.transform = "translateX(-100%)"
+                drawer_menu.style.transform = "translateX(100%)"
             }
         }
     </script>

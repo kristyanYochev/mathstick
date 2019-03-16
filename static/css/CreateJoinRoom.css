@@ -71,7 +71,8 @@
     color:white;
     font-family: grafipaint;
     font-size: 30px;
-    padding-left:30px;
+    border:1px dotted white;
+    text-align: center;
 }
 
 #maximum_players::placeholder, #number_of_equations::placeholder, #join_id::placeholder{
