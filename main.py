@@ -516,6 +516,7 @@ def buy_stick():
         coins= money - price
     )
 
+
 @app.route("/use-stick", methods=["POST"])
 def use_stick():
     json_data = request.get_json()
@@ -528,6 +529,27 @@ def use_stick():
         return jsonify(success=0)
     else:
         return jsonify(success=1)
+
+
+@app.route("/get-bought-sticks", methods=["POST"])
+def get_bought_sticks():
+    json_data = request.get_json()
+    user_id = json_data["user_id"]
+
+    with db.cursor() as cursor:
+        cursor.execute(
+            '''SELECT id, stick, url 
+               FROM sticks 
+               INNER JOIN bought_sticks 
+               ON sticks.id = bought_sticks.stick_id 
+               WHERE user_id = %s''',
+            (user_id)
+        )
+
+        bought_sticks = cursor.fetchall()
+
+    return jsonify(bought_sticks)
+
 
 if __name__ == "__main__":
     db = pymysql.connect(
