@@ -100,7 +100,7 @@ def get_points_and_coins_from_db(user_id):
 '''
 
 @app.route("/create_room", methods=["POST"])
-def on_create_room(data):
+def on_create_room():
     json_data = request.get_json()
 
     user_id = json_data["user_id"]
