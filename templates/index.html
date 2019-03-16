@@ -14,18 +14,16 @@
         <img id="logo" src="http://diysolarpanelsv.com/images/example-13.jpg" alt="logo"/>
         <div class="index_layout">
             <input class="button" type="button" value="CREATE ROOM"/>
-            <input class="button" type="button" value="SINGLEPLAYER" onclick="location.href='/game/singleplayer';"/>
+            <input class="button" type="button" value="SINGLEPLAYER" onclick="on_singleplayer_click()"/>
             <input class="button" type="button" value="JOIN ROOM"/>
         </div>
     </div>
-    <!-- <h1>Hello {{ name }} {{ id }}</h1> -->
-    <input type="hidden" id="user_id" value="{{ id }}">
-    <input type="hidden" id="username" value="{{ name }}">
-    <script src="/static/lib/pixi.min.js"></script>
-    <script src="/static/js/utils.js"></script>
-    <script src="/static/js/symbol_displays.js"></script>
-    <script src="/static/js/matches.js"></script>
-    <script src="/static/js/main.js"></script>
-   
+    <script>
+function on_singleplayer_click()
+{
+    sessionStorage.setItem('game_mode', 'singleplayer')
+    location.href = '/game'
+}
+    </script>
 </body>
 </html>
