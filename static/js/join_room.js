@@ -14,6 +14,8 @@ function join_room()
             user_id: uid,
             username: username
         })
+
+        sessionStorage.setItem('room_id', room_id)
     })
 
     socket.on('joined_room', function(data) {
@@ -29,6 +31,12 @@ function join_room()
 
             joined_players_element.appendChild(player_element)
         }
+    })
+
+    socket.on('starting_game', function(data) {
+        console.log('starting game')
+        sessionStorage.setItem('equations', JSON.stringify(data.equations))
+        location.href = '/game'
     })
 
     // socket.disconnect()

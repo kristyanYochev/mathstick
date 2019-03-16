@@ -17,18 +17,8 @@
                 <span class="opened"></span>
                 <span class="opened"></span>
             </div>
-            <div class="player_menu drawer_menu">
+            <div class="player_menu drawer_menu" id="players">
                 <header>Players</header>
-                <p>Minerusher</p>
-                <p>Minerusher</p>
-                <p>Minerusher</p>
-                <p>Minerusher</p>
-                <p>Minerusher</p>
-                <p>Minerusher</p>
-                <p>Minerusher</p>
-                <p>Minerusher</p>
-                <p>Minerusher</p>
-                <p>Minerusher</p>
             </div>
         </div>
         <div class="game_layout">
@@ -42,7 +32,7 @@
     <input type="hidden" id="user_id" value="{{ id }}">
     <input type="hidden" id="username" value="{{ name }}">
     <input type="hidden" id="gamemode" value="{{ mode }}">
-    <script src=""></script>
+    <script src="/static/lib/socket.io.js"></script>
     <script src="/static/lib/pixi.min.js"></script>
     <script src="/static/js/utils.js"></script>
     <script src="/static/js/symbol_displays.js"></script>

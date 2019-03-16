@@ -19,6 +19,7 @@ var time_display
 var game_mode = sessionStorage.getItem('game_mode')
 var socket
 var equations
+var curr_equation_index = 0
 var uid
 var equation_id
 
@@ -105,9 +106,10 @@ PIXI.loader
     .load(init)
 
 ////////////////////////////////////////////////////////////
-function start_game(equations)
+function start_game(start_equations)
 {
-    equations = equations
+    equations = start_equations
+    displays_manager.render_text(equations[0].equation)
     start_time = Date.now()
     game_state = 'running'
 }
@@ -116,20 +118,42 @@ function finish_game()
 {
     if (check_if_game_finished() && game_state != 'finished')
     {
-        game_state = 'finished'
-        
-        fetch('/complete', {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                user_id: uid,
-                equation_id: equation_id,
-                time: time_taken / 1000
+        if (game_mode == 'singleplayer')
+        {
+            game_state = 'finished'
+            
+            fetch('/complete', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: uid,
+                    equation_id: equations[0].id,
+                    time: time_taken / 1000
+                })
             })
-        })
-        alert(time_taken / 1000 + 's')
+            alert('Congrats')
+        }
+        else
+        {
+            curr_equation_index++
+            if (curr_equation_index >= equations.length)
+            {
+                game_state = 'finished'
+
+                socket.emit('finish_game', {
+                    room_id: sessionStorage.getItem('room_id'),
+                    user_id: uid,
+                    username: username,
+                    time: time_taken / 1000
+                })
+            }
+            else
+            {
+                displays_manager.render_text(equations[curr_equation_index].equation)
+            }
+        }
     }
 }
 
@@ -155,7 +179,6 @@ function init()
 {
     matches_manager = new MatchesManager()
     displays_manager = new DisplaysManager()
-    // matches_manager.add_matchstick(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, 0, true)
     
     ////////////////////////////////////////////////////////////
     var background = new PIXI.Sprite(PIXI.loader.resources.background.texture)
@@ -199,25 +222,38 @@ function init()
         })
         .then(resp => resp.json())
         .then(resp => {
-            displays_manager.render_text(resp.equation)
-            equation_id = resp.id
+            start_game([resp])
         })
     }
+    else
+    {
+        socket = io.connect(window.location.origin)
+        socket.on('connect', function() {
+            socket.emit('join_room', {
+                user_id: uid,
+                username: username,
+                room_id: sessionStorage.getItem('room_id')
+            })
+        })
 
-    start_game([])
-    // else
-    // {
-    //     socket = io.connect(window.location.origin)
-    //     socket.on('connect', function() {
-    //         socket.emit('start_game', {user_id: uid})
-    //     })
+        if (sessionStorage.getItem('equations'))
+        {
+            start_game(JSON.parse(sessionStorage.getItem('equations')))
+        }
+        else
+        {
+            socket.on('starting_game', function(data) {
+                start_game(data.equations)
+            })
+        }
 
-    //     socket.on('starting_game', function(data) {
-    //         equations = data.equations
+        socket.on('finished_game', function(data) {
+            var player_element = document.createElement('p')
+            player_element.innerText = data.user_id + ' - ' + data.time + 's'
 
-    //         start_game(equations)
-    //     })
-    // }
+            document.getElementById('players').appendChild(player_element)
+        })
+    }
 
     ////////////////////////////////////////////////////////////
     main_loop()
