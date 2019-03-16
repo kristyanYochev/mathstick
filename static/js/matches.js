@@ -27,7 +27,7 @@ class Match
 
     on_drag_start(event)
     {
-        if (game_state == 'finished')
+        if (game_state == 'finished' || moved)
         {
             return
         }
@@ -62,6 +62,10 @@ class Match
             this.position.x = this.prev_x
             this.position.y = this.prev_y
             this.rotation = this.prev_angle
+        }
+        else
+        {
+            moved = true
         }
     }
 
