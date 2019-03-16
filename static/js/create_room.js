@@ -40,6 +40,6 @@ function create_room()
             document.getElementById('joined_players').appendChild(playerElement)
         })
     })
+    document.getElementById('create_room').disabled = true
 }
 
-document.getElementById('create_room').addEventListener('click', create_room)
