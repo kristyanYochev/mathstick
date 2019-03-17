@@ -13,7 +13,24 @@
     flex-wrap: wrap;
 }
 
-.shop_container > div{
+.shop_container > *{
+    margin-top:80px;
+    margin-left:50px;
+}
+
+.shop_container > .available_sticks > header{
+    display: flex;
+    align-items:center;
+    font-size:20px;
+    
+}
+
+.shop_container > .bought_sticks > header{
+    font-size:20px;
+    text-align: left;
+}
+
+/* .shop_container > div{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -30,10 +47,13 @@
 
 .use{
     height:39px;
-}
+} */
 
 @media screen and (max-width:600px){
-    .shop_container > div{
-        margin-left:0px;
+    .shop_container > *:first-child{
+        margin-top:100px;
+    }
+    .shop_container > *{
+        margin-left:40px;
     }
 }

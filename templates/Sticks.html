@@ -20,17 +20,28 @@
             </div>
             <div class="shop_container">
                 {% for stick in bought_sticks %}
-                    <div>
-                        <img width="174" height="144" src="../static/images/{{ stick['url'] }}" alt="box_logo"/>
-                        <input onclick="sessionStorage.setItem('stick_url', `{{ stick['stick'] }}` )" class="use button" type="button" value="Use"/>
+                    <div class="bought_sticks card">
+                        <header>Already bought</header>
+                        <div class="card_content">
+                            <img width="174" height="144" src="../static/images/{{ stick['url'] }}" alt="box_logo"/>
+                        </div>
+                        <div class="card_actions">
+                            <input onclick="sessionStorage.setItem('stick_url', `{{ stick['stick'] }}` )" class="use button" type="button" value="Use"/>
+                        </div>
                     </div>
                 {% endfor %}
                 {% for stick in available_sticks %}
-                    <div>
-                        <img width="56" height="50" src="../static/images/coins_broken_transperent_new.png" alt="coin"/>
-                        <span>{{ stick['price'] }}</span>
-                        <img width="174" height="144" src="../static/images/{{ stick['url'] }}" alt="box_logo"/>
-                        <a href="/sticks?stick_id={{ stick['id'] }}"><input class="button" type="button" value="Buy"/></a>
+                    <div class="available_sticks card">
+                        <header>
+                            <img width="46" height="40" src="../static/images/coins_broken_transperent_new.png" alt="coin"/>
+                            <span>{{ stick['price'] }}</span>
+                        </header>
+                        <div class="card_content">
+                            <img width="174" height="144" src="../static/images/{{ stick['url'] }}" alt="box_logo"/>
+                        </div>
+                        <div class="card_actions">
+                            <input class="button" type="button" value="Buy" onclick="location.href = '/sticks?stick_id={{ stick['id'] }}'"/>
+                        </div>
                     </div>
                 {% endfor %}
                 </div>

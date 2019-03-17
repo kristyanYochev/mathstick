@@ -1,0 +1,36 @@
+.card{
+    background-color: darkgrey;
+    display:inline-flex;
+    flex-direction: column;
+    border-radius:10px;
+    padding:10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+.card > header{
+    margin-left:10px;
+    font-size:30px;
+}
+
+.card_content{
+    display:flex;
+    flex-direction: row;
+    margin:0 -10px 0 -10px;
+    padding:10px 0 10px 0;
+}
+
+.card_content > *:not(div){
+    width:400px;
+    height:200px;
+}
+
+.card_actions > *{
+    vertical-align: middle;
+    margin-right:2%;
+}
+
+@media only screen and (max-width: 600px) {
+    .card_content{
+        flex-direction: column!important;
+    }
+}
+ 
