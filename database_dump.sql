@@ -63,25 +63,25 @@ UNLOCK TABLES;
 -- Table structure for table `equations`
 --
 
-DROP TABLE IF EXISTS `equations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `equations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `equation` varchar(64) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- DROP TABLE IF EXISTS `equations`;
+-- /*!40101 SET @saved_cs_client     = @@character_set_client */;
+-- /*!40101 SET character_set_client = utf8 */;
+-- CREATE TABLE `equations` (
+--   `id` int(11) NOT NULL AUTO_INCREMENT,
+--   `equation` varchar(64) DEFAULT NULL,
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+-- /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `equations`
---
+-- --
+-- -- Dumping data for table `equations`
+-- --
 
-LOCK TABLES `equations` WRITE;
-/*!40000 ALTER TABLE `equations` DISABLE KEYS */;
-INSERT INTO `equations` VALUES (1,'30-8=31'),(2,'48-6=43'),(3,'56-6=56'),(4,'60-8=66'),(5,'98-9=92'),(6,'59-5=34'),(7,'83+0=89');
-/*!40000 ALTER TABLE `equations` ENABLE KEYS */;
-UNLOCK TABLES;
+-- LOCK TABLES `equations` WRITE;
+-- /*!40000 ALTER TABLE `equations` DISABLE KEYS */;
+-- INSERT INTO `equations` VALUES (1,'30-8=31'),(2,'48-6=43'),(3,'56-6=56'),(4,'60-8=66'),(5,'98-9=92'),(6,'59-5=34'),(7,'83+0=89');
+-- /*!40000 ALTER TABLE `equations` ENABLE KEYS */;
+-- UNLOCK TABLES;
 
 --
 -- Table structure for table `players`
