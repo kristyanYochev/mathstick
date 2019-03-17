@@ -27,7 +27,7 @@
                 <img src="../static/images/coins_broken_transperent_new.png" alt="coins"/>
                 <div id="coin_count">{{ coins }}</div>
             </div>
-            <input id="fullscreen" class="button" type="button" value="Fullscreen" onclick="document.body.requestFullscreen()">
+            <input id="fullscreen" class="button" type="button" value="Fullscreen" onclick="fullscreen()">
             <p>Move one stick so the equation is true!</p>
             <div id="game">
 
@@ -72,6 +72,18 @@
                 }
             });
         })()
+        function fullscreen(){
+            if (document.fullscreenElement)
+            {
+                document.getElementById("fullscreen").value="Fullscreen"
+                document.exitFullscreen();
+            } 
+            else
+            {
+                document.getElementById("fullscreen").value="Exit Fullscreen"
+                document.documentElement.requestFullscreen();
+            }
+        }
         function show_drawer(){
             var drawer = document.getElementsByClassName("drawer_icon")[0]
             var drawer_menu = document.getElementsByClassName("drawer_menu")[0]
