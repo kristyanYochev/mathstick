@@ -27,6 +27,7 @@
                 <img src="../static/images/coins_broken_transperent_new.png" alt="coins"/>
                 <div id="coin_count">{{ coins }}</div>
             </div>
+            <input id="fullscreen" class="button" type="button" value="Fullscreen" onclick="document.body.requestFullscreen()">
             <p>Move one stick so the equation is true!</p>
             <div id="game">
 
@@ -67,7 +68,7 @@
                     for(var i=0;i<drawer.children.length;i++){
                         drawer.children[i].classList.remove("opened")
                         drawer.children[i].classList.add("closed")
-                    } 
+                    }
                 }
             });
         })()
