@@ -27,6 +27,10 @@ a{
     background-repeat: no-repeat;
 }
 
+.game_layout > p{
+    font-size: 30px;
+}
+
 .navbar{
     display: flex;
     flex-direction: row;
@@ -40,6 +44,7 @@ a{
 }
 
 .navbar > .back{
+    
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-left-radius: 0;
@@ -91,7 +96,7 @@ a{
 
 #logo{
     border:0!important;
-    width:400px;
+    width:500px;
     height: auto;
     position:absolute;
     margin:0px auto;
@@ -107,6 +112,8 @@ a{
 
 .player_menu > p{
     text-align: center;
+    padding-left:20px;
+    padding-right:20px;
     font-size:23px;
 }
 
@@ -165,7 +172,7 @@ a{
         font-size:1.2rem!important;
     }
     #logo{
-        width:250px!important;
+        width:350px!important;
         height:140px!important;
     }
 }
