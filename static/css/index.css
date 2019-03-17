@@ -46,12 +46,12 @@ a{
 }
 
 .navbar > img{
-    height:70px;
+    margin-left:20px;
+    height:45px;
 }
 
 .navbar > div{
     font-size: 27px;
-    margin-left: -20px;
     color: #B49C2F;
     text-shadow: 1px 2px 2px #000;
 }
@@ -111,13 +111,21 @@ a{
 }
 
 #rotate_screen{
-    background-image: url("../images/asd.png");
+    background-image: url("../images/rotate+device5+cropped.png");
     width:100vw;
     height:100vh;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     display:none;
+}
+
+@media screen and (max-width: 600px){
+    #content > .navbar{
+        margin-bottom:10px;
+        bottom:0;
+        top:initial;
+    }
 }
 
 @media only screen and (max-width: 768px){
