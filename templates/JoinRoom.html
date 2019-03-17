@@ -13,10 +13,14 @@
     </head>
     <body>
         <div class="create_room_wrapper">
+            
             <div id="joined_players">
                 <span>Joined players:</span>            
             </div>
             <div>
+                <div class="navbar">
+                    <input class="back button" type="button" value="<==" onclick="location.href = '/settings'">
+                </div>
                 ID: <span><input id="join_id" class="textfield" type="text" placeholder="Enter ID here" spellCheck="false"/></span>
                 <input id="join_room" class="button" type="button" value="Join Room" onclick="join_room()"/>
             </div>

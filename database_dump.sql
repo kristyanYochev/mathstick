@@ -142,7 +142,7 @@ CREATE TABLE `sticks` (
   `url` varchar(256) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,6 +151,7 @@ CREATE TABLE `sticks` (
 
 LOCK TABLES `sticks` WRITE;
 /*!40000 ALTER TABLE `sticks` DISABLE KEYS */;
+INSERT INTO `sticks` VALUES (3,'/static/images/stick4.png','box_.png',50),(4,'/static/images/lazer.png','box_sw.png',50);
 /*!40000 ALTER TABLE `sticks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +179,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Georgi','$5$rounds=535000$nziBB5TB1q4rB7yg$onG3HVkkQExu3Yi6xDJGtfjvq0gyGXx/iDOs6vzSbN/','georgikorchakov@gmail.com',30,0);
+INSERT INTO `users` VALUES (1,'Georgi','$5$rounds=535000$nziBB5TB1q4rB7yg$onG3HVkkQExu3Yi6xDJGtfjvq0gyGXx/iDOs6vzSbN/','georgikorchakov@gmail.com',3629,282);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -191,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-16 17:19:53
+-- Dump completed on 2019-03-17  0:21:07

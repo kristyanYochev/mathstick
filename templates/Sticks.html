@@ -13,20 +13,27 @@
     </head>
     <body>
         <div class="shop_wrapper">
-            <div>
-                <img src="../static/images/box_.png" alt="box_logo"/>
-                <img src="../static/images/box_.png" alt="box_logo"/>
-                <img src="../static/images/box_.png" alt="box_logo"/>
-                <img src="../static/images/box_.png" alt="box_logo"/>
-                <img src="../static/images/box_.png" alt="box_logo"/>
-                <img src="../static/images/box_.png" alt="box_logo"/>
-                <img src="../static/images/box_.png" alt="box_logo"/>
-                <img src="../static/images/box_.png" alt="box_logo"/>
-                <img src="../static/images/box_.png" alt="box_logo"/>
-                <img src="../static/images/box_.png" alt="box_logo"/>
-                <img src="../static/images/box_.png" alt="box_logo"/>
-                <img src="../static/images/box_.png" alt="box_logo"/>
-            </div>  
+            <div class="navbar">
+                <input class="back button" type="button" value="<==" onclick="location.href = '/settings'">
+                <img src="../static/images/coins_broken_transperent_new.png" alt="coins"/>
+                <div>{{ coins }}</div>
+            </div>
+            <div class="shop_container">
+                {% for stick in bought_sticks %}
+                    <div>
+                        <img width="174" height="144" src="../static/images/{{ stick['url'] }}" alt="box_logo"/>
+                        <input onclick="sessionStorage.setItem('stick_url', `{{ stick['stick'] }}` )" class="use button" type="button" value="Use"/>
+                    </div>
+                {% endfor %}
+                {% for stick in available_sticks %}
+                    <div>
+                        <img width="56" height="50" src="../static/images/coins_broken_transperent_new.png" alt="coin"/>
+                        <span>{{ stick['price'] }}</span>
+                        <img width="174" height="144" src="../static/images/{{ stick['url'] }}" alt="box_logo"/>
+                        <a href="/sticks?stick_id={{ stick['id'] }}"><input class="button" type="button" value="Buy"/></a>
+                    </div>
+                {% endfor %}
+                </div>
         </div>
     </body>
 </html>

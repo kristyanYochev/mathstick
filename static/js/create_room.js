@@ -32,7 +32,6 @@ function create_room()
                 room_id: sessionStorage.getItem('room_id'),
                 equations_count: sessionStorage.getItem('equation_count')
             })
-            location.href = '/game'
         }
 
         socket = io.connect(window.location.origin)
@@ -63,6 +62,11 @@ function create_room()
                 joined_players_element.appendChild(playerElement)
             }
 
+        })
+
+        socket.on('starting_game', function(data) {
+            sessionStorage.setItem('equations', JSON.stringify(data.equations))
+            location.href = '/game'
         })
     })
     document.getElementById('create_room').disabled = true

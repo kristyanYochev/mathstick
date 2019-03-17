@@ -14,8 +14,6 @@ a{
     cursor: pointer;
 }
 
-
-
 .game_layout{
     display:flex;
     flex-direction: column;
@@ -27,6 +25,35 @@ a{
     background-image: url("../images/light-wood-table-texture_light_wood_grain_texture_wallmayacom_light_wooden_table_texture.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.navbar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position:absolute;
+    background-color:transparent;
+    width: 100%;
+    height:44px;
+    top:0;
+    right:0;
+}
+
+.navbar > .back{
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.navbar > img{
+    margin-left:20px;
+    height:45px;
+}
+
+.navbar > div{
+    font-size: 27px;
+    color: #B49C2F;
+    text-shadow: 1px 2px 2px #000;
 }
 
 #game > canvas{
@@ -60,13 +87,7 @@ a{
     transform: scale(1.1);
 }
 
-.index_layout > input:nth-child(2){
-    margin-top:100px;
-}
 
-.index_layout > input:nth-child(1), input:nth-child(3){
-    font-size: 1.7rem;
-}
 
 #logo{
     border:0!important;
@@ -80,7 +101,6 @@ a{
 }
 
 .player_menu{
-    height:100vh;
     overflow: auto;
     border-bottom-right-radius: 0px;
 }
@@ -91,7 +111,7 @@ a{
 }
 
 #rotate_screen{
-    background-image: url("../images/asd.png");
+    background-image: url("../images/rotate+device5+cropped.png");
     width:100vw;
     height:100vh;
     background-position: center;
@@ -100,20 +120,36 @@ a{
     display:none;
 }
 
-@media only screen and (max-width: 600px){
-    .index_layout{
-        flex-direction: column;
-        justify-content: center;
+@media screen and (max-width: 600px){
+    #content > .navbar{
+        margin-bottom:10px;
+        bottom:0;
+        top:initial;
     }
-    .index_layout > input:nth-child(2){
-        margin:50px;
+}
 
+@media only screen and (max-width: 768px){
+    .index_layout{
+        flex-direction: column!important;
+        justify-content: center!important;
     }
     .index_layout > *{
-        font-size:2rem;
+        font-size:2rem!important;
+        margin-top:40px;
     }
-    .index_layout > input:nth-child(1), input:nth-child(3){
-        font-size: 1.3rem;
+    #logo{
+        width:300px!important;
+    }
+}
+
+@media only screen and (max-width: 1024px){
+    .index_layout{
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+    .index_layout > *{
+        font-size:2rem!important;
+        margin-top:40px;
     }
     #logo{
         width:300px!important;
@@ -121,26 +157,15 @@ a{
 }
 
 @media only screen and (max-height: 425px){
-    .index_layout > *{
-        font-size:2rem;
+    .index_layout{
+        flex-direction: row!important;
+        justify-content: space-evenly!important;
     }
-    .index_layout > input:nth-child(1), input:nth-child(3){
-        font-size: 1.3rem;
+    .index_layout > *{
+        font-size:1.2rem!important;
     }
     #logo{
         width:250px!important;
         height:140px!important;
-    }
-}
-
-@media only screen and (max-width: 768px){
-    .index_layout > *{
-        font-size:2rem;
-    }
-    .index_layout > input:nth-child(1), input:nth-child(3){
-        font-size: 1.3rem;
-    }
-    #logo{
-        width:300px!important;
     }
 }

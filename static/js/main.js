@@ -13,10 +13,13 @@ var game_state = 'waiting'
 var matches_manager
 var displays_manager
 var finish_button
+var next_button
+var undo_button
 var start_time
 var time_taken
 var time_display
 var game_mode = sessionStorage.getItem('game_mode')
+var moved = false
 var socket
 var equations
 var curr_equation_index = 0
@@ -101,8 +104,10 @@ const MAP_SYMBOLS_TO_SEGMENTS = {
 ////////////////////////////////////////////////////////////
 PIXI.loader
     .add('background', '/static/images/green_background.png')
-    .add('matchstick', '/static/images/stick4.png')
+    .add('matchstick', sessionStorage.getItem('stick_url'))
     .add('check', '/static/images/finish_button.png')
+    .add('new', '/static/images/new.png')
+    .add('reset', '/static/images/reload.png')
     .load(init)
 
 ////////////////////////////////////////////////////////////
@@ -114,6 +119,29 @@ function start_game(start_equations)
     game_state = 'running'
 }
 
+function undo()
+{
+    displays_manager.render_text(equations[curr_equation_index].equation)
+    moved = false
+}
+
+function next_equation()
+{
+    fetch('/get/equation', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id: uid})
+    })
+    .then(resp => resp.json())
+    .then(resp => {
+        stage.removeChild(next_button)
+        stage.addChild(finish_button)
+        start_game([resp])
+    })
+}
+
 function finish_game()
 {
     if (check_if_game_finished() && game_state != 'finished')
@@ -121,7 +149,8 @@ function finish_game()
         if (game_mode == 'singleplayer')
         {
             game_state = 'finished'
-            
+            moved = false
+
             fetch('/complete', {
                 method: "POST",
                 headers: {
@@ -133,7 +162,13 @@ function finish_game()
                     time: time_taken / 1000
                 })
             })
-            alert('Congrats')
+            .then(resp => resp.json())
+            .then(resp => {
+                document.getElementById('coin_count').innerText = resp.coins
+            })
+            
+            stage.removeChild(finish_button)
+            stage.addChild(next_button)
         }
         else
         {
@@ -145,13 +180,14 @@ function finish_game()
                 socket.emit('finish_game', {
                     room_id: sessionStorage.getItem('room_id'),
                     user_id: uid,
-                    username: username,
+                    username: document.getElementById('username').value,
                     time: time_taken / 1000
                 })
             }
             else
             {
                 displays_manager.render_text(equations[curr_equation_index].equation)
+                moved = false
             }
         }
     }
@@ -188,18 +224,42 @@ function init()
     background.scale.set(bg_scale_x, bg_scale_y)
 
     stage.addChild(background)
+
+    ////////////////////////////////////////////////////////////
+    undo_button = new PIXI.Sprite(PIXI.loader.resources.reset.texture)
+    var undo_scale = 150 / PIXI.loader.resources.reset.texture.width
+    undo_button.anchor.set(1, 0)
+    undo_button.scale.set(undo_scale, undo_scale)
+    undo_button.position.set(CANVAS_WIDTH, 0)
+    undo_button.interactive = true
+
+    undo_button.on('click', undo)
+
+    stage.addChild(undo_button)
     
     ////////////////////////////////////////////////////////////
     finish_button = new PIXI.Sprite(PIXI.loader.resources.check.texture)
     var finish_scale = 200 / PIXI.loader.resources.check.texture.width
 
+    finish_button.anchor.set(1, 1)
     finish_button.scale.set(finish_scale, finish_scale)
-    finish_button.position.set(CANVAS_WIDTH - 200, CANVAS_HEIGHT - 170)
+    finish_button.position.set(CANVAS_WIDTH, CANVAS_HEIGHT)
     finish_button.interactive = true
 
     finish_button.on('click', finish_game)
 
     stage.addChild(finish_button)
+
+    ////////////////////////////////////////////////////////////
+    next_button = new PIXI.Sprite(PIXI.loader.resources.new.texture)
+    var next_scale = 200 / PIXI.loader.resources.new.texture.width
+
+    next_button.anchor.set(1, 1)
+    next_button.scale.set(next_scale, next_scale)
+    next_button.position.set(CANVAS_WIDTH, CANVAS_HEIGHT)
+    next_button.interactive = true
+
+    next_button.on('click', next_equation)
 
     ////////////////////////////////////////////////////////////
     time_display = new PIXI.Text('', {fill: 0xd9b946})
@@ -249,7 +309,7 @@ function init()
 
         socket.on('finished_game', function(data) {
             var player_element = document.createElement('p')
-            player_element.innerText = data.user_id + ' - ' + data.time + 's'
+            player_element.innerText = data.username + ' - ' + data.time + 's'
 
             document.getElementById('players').appendChild(player_element)
         })

@@ -11,14 +11,25 @@
 </head>
 <body>
     <div id="content">
+        <div class="navbar">
+            <img src="../static/images/coins_broken_transperent_new.png" alt="coins"/>
+            <div>{{ coins }}</div>
+        </div>
         <img id="logo" src="http://diysolarpanelsv.com/images/example-13.jpg" alt="logo"/>
         <div class="index_layout">
             <input class="button" type="button" value="CREATE ROOM" onclick="on_create_room_click()"/>
             <input class="button" type="button" value="SINGLEPLAYER" onclick="on_singleplayer_click()"/>
+            <input class="button" type="button" value="STICKS" onclick="location.href = '/sticks'"/>
             <input class="button" type="button" value="JOIN ROOM" onclick="on_join_room_click()"/>
         </div>
     </div>
+    <input type="hidden" id="fallback_stick_url" value="{{ stick_url }}">
     <script>
+if (!sessionStorage.getItem('stick_url') || sessionStorage.getItem('stick_url')[0] != '/')  // If stick_url is not set
+{
+    sessionStorage.setItem('stick_url', document.getElementById('fallback_stick_url').value)
+}
+
 function on_singleplayer_click()
 {
     sessionStorage.setItem('game_mode', 'singleplayer')

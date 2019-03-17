@@ -1,40 +1,39 @@
 .shop_wrapper{
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width:100vw;
-    height:100vh;
     background-image: url("../images/light-wood-table-texture_light_wood_grain_texture_wallmayacom_light_wooden_table_texture.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+}
+.shop_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-.shop_wrapper > div{
-    overflow-x: auto;
-    overflow-y:hidden;
-    white-space: nowrap;
+.shop_container > div{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top:70px;
+    margin-left:30px;
 }
 
-.shop_wrapper > div > *{
-    width:350px;
+.shop_container > div > span{
+    font-size: 27px;
+    margin-top:15px;
+    color: #B49C2F;
+    text-shadow: 1px 2px 2px #000;
 }
 
-/* width */
-.shop_wrapper > div::-webkit-scrollbar {
+.use{
+    height:39px;
 }
 
-/* Track */
-.shop_wrapper > div::-webkit-scrollbar-track {
-background: #f1f1f1; 
-}
-
-/* Handle */
-.shop_wrapper > div::-webkit-scrollbar-thumb {
-background: #888; 
-}
-
-/* Handle on hover */
-.shop_wrapper > div::-webkit-scrollbar-thumb:hover {
-background: #555; 
+@media screen and (max-width:600px){
+    .shop_container > div{
+        margin-left:0px;
+    }
 }
