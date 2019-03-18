@@ -7,9 +7,16 @@
     <link rel="stylesheet" type="text/css" href="../static/css/Drawer.css">
     <link rel="stylesheet" type="text/css" href="../static/css/Button.css">
     <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>MathStick</title>
 </head>
 <body>
+    <div id="rotate_screen"></div>
+    <div class="navbar">
+        <i class="back button material-icons" onclick="location.href = '/settings'">keyboard_backspace</i>
+        <img src="../static/images/coins_broken_transperent_new.png" alt="coins"/>
+        <div id="coin_count">{{ coins }}</div>
+    </div>
     <div id="content">
         <div onClick="show_drawer()" class="drawer_corner">
             
@@ -22,19 +29,13 @@
             </div>
         </div>
         <div class="game_layout">
-            <div class="navbar">
-                <input class="back button" type="button" value="<==" onclick="location.href = '/settings'">
-                <img src="../static/images/coins_broken_transperent_new.png" alt="coins"/>
-                <div id="coin_count">{{ coins }}</div>
-            </div>
-            <input id="fullscreen" class="button" type="button" value="Fullscreen" onclick="fullscreen()">
+            <i id="fullscreen" class="button material-icons" onclick="fullscreen()">fullscreen</i>
             <p>Move one stick so the equation is true!</p>
             <div id="game">
 
             </div>
         </div>
     </div>
-    <div id="rotate_screen"></div>
     <!-- <h1>Hello {{ name }} {{ id }}</h1> -->
     <input type="hidden" id="user_id" value="{{ id }}">
     <input type="hidden" id="username" value="{{ name }}">
@@ -75,12 +76,12 @@
         function fullscreen(){
             if (document.fullscreenElement)
             {
-                document.getElementById("fullscreen").value="Fullscreen"
+                document.getElementById("fullscreen").innerHTML="fullscreen"
                 document.exitFullscreen();
             } 
             else
             {
-                document.getElementById("fullscreen").value="Exit Fullscreen"
+                document.getElementById("fullscreen").innerHTML="fullscreen_exit"
                 document.documentElement.requestFullscreen();
             }
         }

@@ -5,23 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <!-- <link rel="stylesheet" type="text/css" href="../static/css/Drawer.css"> -->
-        <link rel="stylesheet" type="text/css" href="../static/css/index.css">
         <link rel="stylesheet" type="text/css" href="../static/css/TextField.css">
         <link rel="stylesheet" type="text/css" href="../static/css/Button.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/index.css">
         <link rel="stylesheet" type="text/css" href="../static/css/CreateJoinRoom.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
         <title>Create Room</title>
     </head>
     <body>
+        <div class="navbar">
+            <i class="back button material-icons" onclick="location.href = '/settings'">keyboard_backspace</i>
+        </div>
         <div class="create_room_wrapper">
             <div id="joined_players">
                 <span>Joined players:</span>
-                
             </div>
             <div id="controls">
-                <div class="navbar">
-                    <input class="back button" type="button" value="<==" onclick="location.href = '/settings'">
-                </div>
-                ID: <span id="room_id">Not created</span>
+                <span>ID:</span><span id="room_id">Not created</span>
                 <span>Max players:<input id="maximum_players" class="textfield" type="number" value="2" min="2" max="10" spellCheck="false"/></span>
                 <span>Number of equations:<input id="number_of_equations" class="textfield" type="number" value="1" min="1"  max="10" spellCheck="false"/></span>
                 <input id="create_room" onClick="create_room()" class="button" type="button" value="Create Room"/>
