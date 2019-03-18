@@ -27,6 +27,14 @@ socketio = SocketIO(app)
 ---------- Utils ----------
 '''
 
+db = pymysql.connect(
+    host=DATABASE_HOST,
+    user=DATABASE_USER,
+    password=DATABASE_PASSWORD,
+    database=DATABASE_DATABASE,
+    cursorclass=pymysql.cursors.DictCursor
+)
+
 def get_unique_id():
     unique_id = str(uuid.uuid4())
     return unique_id[-6:]
