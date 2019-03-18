@@ -6,6 +6,9 @@
     height: 100vh;
 }
 .shop_container{
+    background-image: url("../images/light-wood-table-texture_light_wood_grain_texture_wallmayacom_light_wooden_table_texture.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -29,31 +32,14 @@
     font-size:20px;
     text-align: left;
 }
-
-/* .shop_container > div{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-top:70px;
-    margin-left:30px;
-}
-
-.shop_container > div > span{
-    font-size: 27px;
-    margin-top:15px;
-    color: #B49C2F;
-    text-shadow: 1px 2px 2px #000;
-}
-
-.use{
-    height:39px;
-} */
-
 @media screen and (max-width:600px){
     .shop_container > *:first-child{
         margin-top:100px;
     }
-    .shop_container > *{
-        margin-left:40px;
+    .shop_container > *:nth-child(odd){
+        margin-left:0px;
+    }
+    .shop_container > *:nth-child(even){
+        margin-left:30px;
     }
 }

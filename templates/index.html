@@ -10,12 +10,12 @@
     <title>MathStick</title>
 </head>
 <body>
+    <div class="navbar navbar_index">
+        <img src="../static/images/coins_broken_transperent_new.png" alt="coins"/>
+        <div>{{ coins }}</div>
+        <div id="logout">Logout</div>
+    </div>
     <div id="content">
-        <div class="navbar">
-            <img src="../static/images/coins_broken_transperent_new.png" alt="coins"/>
-            <div>{{ coins }}</div>
-            <div id="logout">Logout</div>
-        </div>
         <img id="logo" src="../static/images/Logo.png" alt="logo"/>
         <div class="index_layout">
             <input class="button" type="button" value="CREATE ROOM" onclick="on_create_room_click()"/>
