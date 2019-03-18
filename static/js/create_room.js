@@ -52,6 +52,8 @@ function create_room()
             players = data.current_players
 
             var joined_players_element = document.getElementById('joined_players')
+            joined_players_element.innerHTML = ''
+            
 
             for (var player of players)
             {

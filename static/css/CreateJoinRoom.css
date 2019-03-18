@@ -85,7 +85,7 @@
     text-align: center;
 }
 
-@media only screen and (max-height: 425px) and not (max-width:425px){
+@media only screen and (max-height: 425px){
     .create_room_wrapper{
         flex-direction: row!important;
     }
@@ -97,9 +97,9 @@
     }
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-height: 768px){
     .create_room_wrapper{
-        flex-direction: column;
+        flex-direction: column!important;
     }
     .create_room_wrapper > #controls{
         font-size:25px;

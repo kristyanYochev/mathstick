@@ -28,7 +28,10 @@
                             <img width="174" height="144" src="../static/images/{{ stick['url'] }}" alt="box_logo"/>
                         </div>
                         <div class="card_actions">
-                            <input onclick="sessionStorage.setItem('stick_url', `{{ stick['stick'] }}` )" class="use button" type="button" value="Use"/>
+                            <button class="buy_use button" onclick="sessionStorage.setItem('stick_url', `{{ stick['stick'] }}` )">
+                                Use
+                                <i class="material-icons">subdirectory_arrow_right</i>
+                            </button>
                         </div>
                     </div>
                 {% endfor %}
@@ -42,7 +45,10 @@
                             <img width="174" height="144" src="../static/images/{{ stick['url'] }}" alt="box_logo"/>
                         </div>
                         <div class="card_actions">
-                            <input class="button" type="button" value="Buy" onclick="location.href = '/sticks?stick_id={{ stick['id'] }}'"/>
+                            <button class="buy_use button" onclick="location.href = '/sticks?stick_id={{ stick['id'] }}'">
+                                Buy
+                                <i class="material-icons">subdirectory_arrow_right</i>
+                            </button>
                         </div>
                     </div>
                 {% endfor %}

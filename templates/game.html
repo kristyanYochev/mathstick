@@ -18,13 +18,13 @@
         <div id="coin_count">{{ coins }}</div>
     </div>
     <div id="content">
-        <div onClick="show_drawer()" class="drawer_corner">
+        <div onClick="show_drawer()" class="player_drawer drawer_corner">
             
             <div class="drawer_icon">
                 <span class="opened"></span>
                 <span class="opened"></span>
             </div>
-            <div class="player_menu drawer_menu" id="players">
+            <div class="drawer_menu" id="players">
                 <header>Players</header>
             </div>
         </div>
@@ -48,11 +48,11 @@
     <script src="/static/js/main.js"></script>
     <script>
         (function() {
-            if(sessionStorage.getItem('game_mode')=="singleplayer"){
-                document.getElementsByClassName("drawer_corner")[0].style.display = "none"
-            } else {
-                document.getElementsByClassName("drawer_corner")[0].style.display = "block"
-            }
+            // if(sessionStorage.getItem('game_mode')=="singleplayer"){
+            //     document.getElementsByClassName("drawer_corner")[0].style.display = "none"
+            // } else {
+            //     document.getElementsByClassName("drawer_corner")[0].style.display = "block"
+            // }
             if(window.innerHeight > window.innerWidth){
                 document.getElementById("content").style.display = "none"
                 document.getElementById("rotate_screen").style.display = "block"

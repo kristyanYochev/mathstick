@@ -6,6 +6,7 @@ html, body{
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     background-color:orange;
+    
 }
 
 a{
@@ -115,12 +116,12 @@ a{
     right:0;
 }
 
-.player_menu{
+.player_drawer > .drawer_menu{
     overflow: auto;
     border-bottom-right-radius: 0px;
 }
 
-.player_menu > p{
+.player_drawer > .drawer_menu > p{
     text-align: center;
     padding-left:20px;
     padding-right:20px;
@@ -200,10 +201,10 @@ a{
     }
     #game > canvas{
         position: absolute;
-        top:0;
         border:0;
         border-radius: 0;
         width:100%;
+        height: 100%;
         z-index: 0;
     }
     .navbar{

@@ -32,6 +32,18 @@
     font-size:20px;
     text-align: left;
 }
+
+.buy_use{
+    background-color: transparent!important;
+    border:0;
+    font-family: grafipaint;
+    font-size:30px;
+}
+
+.buy_use > i{
+    transform: rotate(-90deg);
+}
+
 @media screen and (max-width:600px){
     .shop_container > *:first-child{
         margin-top:100px;
