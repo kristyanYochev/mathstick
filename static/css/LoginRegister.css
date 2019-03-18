@@ -9,9 +9,10 @@
     display:grid;
     grid-row-gap:50px;
     grid-template-rows: 100px 100px 32px 32px 50px;
-    background-image: url("../images/light-wood-table-texture_light_wood_grain_texture_wallmayacom_light_wooden_table_texture.jpg");
+    background-image: url("../images/Light-wood-wallpaper-background-HD.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: left;
     justify-items: end;
     animation: fade 0.5s forwards;
     opacity:0;
@@ -84,9 +85,10 @@
     display:grid;
     grid-row-gap:50px;
     grid-template-rows: 100px 100px 32px 32px 32px 32px 50px;
-    background-image: url("../images/dd5gCKd.jpg");
+    background-image: url("../images/Wood-background1.png");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: right;
     justify-items: start;
     animation: fade 0.5s forwards;
     opacity:0;

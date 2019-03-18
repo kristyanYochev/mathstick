@@ -4,9 +4,7 @@ html, body{
     width:100%;
     height: 100%;
     -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-    background-color:orange;
-    
+    touch-action: manipulation;    
 }
 
 a{
@@ -26,13 +24,16 @@ a{
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background-image: url("../images/light-wood-table-texture_light_wood_grain_texture_wallmayacom_light_wooden_table_texture.jpg");
+    background-image: url("../images/Light-wood-wallpaper-background-HD.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .game_layout > p{
     font-size: 30px;
+    user-select: none;
+    color:#5C351D;
+    text-shadow: 1px 1px 2px #000;
 }
 
 .navbar{
@@ -61,9 +62,9 @@ a{
 }
 
 .navbar > div{
-    font-size: 27px;
-    color: #B49C2F;
-    text-shadow: 1px 2px 2px #000;
+    color: #5C351D;
+    font-weight: bold;
+    font-size:28px;
 }
 
 #logout{
@@ -87,17 +88,19 @@ a{
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background-image: url("../images/light-wood-table-texture_light_wood_grain_texture_wallmayacom_light_wooden_table_texture.jpg");
+    background-image: url("../images/Light-wood-wallpaper-background-HD.jpg");
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
 }
 
 .index_layout > *{
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     font-size:3rem;
-    background-color: rgba(255,255,255,0)!important;
+    background-color: #E2BE96!important;
     border-radius:20px;
-    border:5px solid #5A5A5A;    
+    border:5px solid #5C351D;
+    color:#5C351D; 
     transition: 0.3s;
 }
 

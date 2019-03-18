@@ -1,14 +1,13 @@
 .shop_wrapper{
-    background-image: url("../images/light-wood-table-texture_light_wood_grain_texture_wallmayacom_light_wooden_table_texture.jpg");
+    background-image: url("../images/Light-wood-wallpaper-background-HD.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
     width: 100vw;
     height: 100vh;
 }
 .shop_container{
-    background-image: url("../images/light-wood-table-texture_light_wood_grain_texture_wallmayacom_light_wooden_table_texture.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -21,23 +20,18 @@
     margin-left:50px;
 }
 
-.shop_container > .available_sticks > header{
-    display: flex;
-    align-items:center;
-    font-size:20px;
-    
-}
-
+.shop_container > .available_sticks, 
 .shop_container > .bought_sticks > header{
-    font-size:20px;
-    text-align: left;
+    font-size:25px;
+    color:#5C351D;
+    
 }
 
 .buy_use{
     background-color: transparent!important;
-    border:0;
-    font-family: grafipaint;
-    font-size:30px;
+    border:0!important;
+    color:#5C351D;
+    font-size:25px;
 }
 
 .buy_use > i{
@@ -45,8 +39,11 @@
 }
 
 @media screen and (max-width:600px){
-    .shop_container > *:first-child{
-        margin-top:100px;
+    .shop_container{
+        background-image: url("../images/Light-wood-wallpaper-background-HD.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
     .shop_container > *:nth-child(odd){
         margin-left:0px;
