@@ -1,5 +1,5 @@
 const CANVAS_WIDTH = 1000
-const CANVAS_HEIGHT = CANVAS_WIDTH * (window.innerHeight / window.innerWidth)
+const CANVAS_HEIGHT = CANVAS_WIDTH * (9 / 16)
 
 var renderer = PIXI.autoDetectRenderer(CANVAS_WIDTH, CANVAS_HEIGHT)
 
@@ -59,7 +59,7 @@ const MATCH_LENGTH = 80
 const SNAP_DISTANCE = 30
 const SEPARATION = 40
 const PLAY_AREA_X = 100
-const PLAY_AREA_Y = (CANVAS_HEIGHT + 120) / 4
+const PLAY_AREA_Y = 200
 const DISPLAY_SEGMENTS = {
     number: [
         {x: MATCH_LENGTH / 2, y: 0, angle: 0, interactive: true},
@@ -255,7 +255,7 @@ function init()
 
     ////////////////////////////////////////////////////////////
     next_button = new PIXI.Sprite(PIXI.loader.resources.new.texture)
-    var next_scale = (CANVAS_HEIGHT / 4) / PIXI.loader.resources.new.texture.width
+    var next_scale = 200 / PIXI.loader.resources.new.texture.width
 
     next_button.anchor.set(1, 1)
     next_button.scale.set(next_scale, next_scale)
