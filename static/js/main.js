@@ -233,7 +233,9 @@ function init()
     undo_button.position.set(CANVAS_WIDTH, 0)
     undo_button.interactive = true
 
-    undo_button.on('click', undo)
+    undo_button
+        .on('click', undo)
+        .on('touchend', undo)
 
     stage.addChild(undo_button)
     
@@ -247,6 +249,7 @@ function init()
     finish_button.interactive = true
 
     finish_button.on('click', finish_game)
+    finish_button.on('touchend', finish_game)
 
     stage.addChild(finish_button)
 
@@ -259,7 +262,9 @@ function init()
     next_button.position.set(CANVAS_WIDTH, CANVAS_HEIGHT)
     next_button.interactive = true
 
-    next_button.on('click', next_equation)
+    next_button
+        .on('click', next_equation)
+        .on('touchend', next_equation)
 
     ////////////////////////////////////////////////////////////
     time_display = new PIXI.Text('', {fill: 0xd9b946})
