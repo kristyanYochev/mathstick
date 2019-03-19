@@ -13,6 +13,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: left;
+    min-height: 100%;
     justify-items: end;
     animation: fade 0.5s forwards;
     opacity:0;
@@ -89,6 +90,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: right;
+    min-height: 100%;
     justify-items: start;
     animation: fade 0.5s forwards;
     opacity:0;

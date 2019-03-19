@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="../static/css/Drawer.css">
     <link rel="stylesheet" type="text/css" href="../static/css/Button.css">
     <link rel="stylesheet" type="text/css" href="../static/css/index.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>MathStick</title>
 </head>
 <body>
@@ -17,17 +16,28 @@
         <img src="../static/images/coins_broken_transperent_new.png" alt="coins"/>
         <div id="coin_count">{{ coins }}</div>
     </div>
-    <div id="content">
-        <div onClick="show_drawer()" class="player_drawer drawer_corner">
-            
-            <div class="drawer_icon">
-                <span class="opened"></span>
-                <span class="opened"></span>
-            </div>
-            <div class="drawer_menu" id="players">
-                <header>Players</header>
-            </div>
+    <div onClick="show_drawer()" class="player_drawer drawer_corner">
+        <div class="drawer_icon">
+            <span class="opened"></span>
+            <span class="opened"></span>
         </div>
+        <div class="drawer_menu" id="players">
+            <header>Players</header>
+            <p>asd</p>
+            <p>asd</p>
+            <p>asd</p>
+            <p>asd</p>
+            <p>asd</p>
+            <p>asd</p>
+            <p>asd</p>
+            <p>asd</p>
+            <p>asd</p>
+            <p>asd</p>
+            <p>asd</p>
+            <p>asd</p>
+        </div>
+    </div>
+    <div id="content">
         <div class="game_layout">
             <i id="fullscreen" class="button material-icons" onclick="fullscreen()">fullscreen</i>
             <p>Move one stick so the equation is true!</p>
@@ -53,20 +63,34 @@
             // } else {
             //     document.getElementsByClassName("drawer_corner")[0].style.display = "block"
             // }
-            if(window.innerHeight > window.innerWidth){
-                document.getElementById("content").style.display = "none"
-                document.getElementById("rotate_screen").style.display = "block"
+            var rotate_screen = document.getElementById("rotate_screen")
+            var content = document.getElementById("content")
+            if(window.innerHeight > window.innerWidth)
+            {
+                content.style.display = "none"
+                rotate_screen.style.display = "block"
             }
             window.addEventListener("orientationchange", function() {
                 var drawer = document.getElementsByClassName("drawer_icon")[0]
-                if(screen.orientation.angle == 180 || screen.orientation.angle == 0){
-                    document.getElementById("content").style.display = "none"
-                    document.getElementById("rotate_screen").style.display = "block"
-                } else {
-                    document.getElementById("content").style.display = "block"
-                    document.getElementById("rotate_screen").style.display = "none"
-                    document.getElementsByClassName("drawer_menu")[0].style.transform = "translateX(100%)"
-                    for(var i=0;i<drawer.children.length;i++){
+                if(screen.orientation.angle == 180 || screen.orientation.angle == 0)
+                {
+                    content.style.display = "none"
+                    rotate_screen.style.display = "block"
+                } 
+                else 
+                {
+                    content.style.display = "block"
+                    rotate_screen.style.display = "none"
+                    if(window.matchMedia("(max-height: 425px)").matches)
+                    {
+                        document.getElementsByClassName("drawer_menu")[0].style.transform = "translateY(100%)"
+                    }
+                    else
+                    {
+                        document.getElementsByClassName("drawer_menu")[0].style.transform = "translateX(100%)"
+                    }
+                    for(var i=0;i<drawer.children.length;i++)
+                    {
                         drawer.children[i].classList.remove("opened")
                         drawer.children[i].classList.add("closed")
                     }
@@ -88,20 +112,42 @@
         function show_drawer(){
             var drawer = document.getElementsByClassName("drawer_icon")[0]
             var drawer_menu = document.getElementsByClassName("drawer_menu")[0]
-            for(var i=0;i<drawer.children.length;i++){
-                if(drawer.children[i].classList.contains("closed")){
+            for(var i=0;i<drawer.children.length;i++)
+            {
+                if(drawer.children[i].classList.contains("closed"))
+                {
                     drawer.children[i].classList.remove("closed")
                     drawer.children[i].classList.add("opened")
-                } else{
+                }
+                else
+                {
                     drawer.children[i].classList.remove("opened")
                     drawer.children[i].classList.add("closed")
                 }
             }
-            if(drawer_menu.style.transform == "translateX(100%)"){
-                drawer_menu.style.transform = "translateX(0)"
-            } else{
-                drawer_menu.style.transform = "translateX(100%)"
+            if(window.matchMedia("(max-height: 425px)").matches)
+            {
+                if(drawer_menu.style.transform == "translateY(100%)")
+                {
+                    drawer_menu.style.transform = "translateY(0)"
+                } 
+                else
+                {
+                    drawer_menu.style.transform = "translateY(100%)"
+                }
             }
+            else
+            {
+                if(drawer_menu.style.transform == "translateX(100%)")
+                {
+                    drawer_menu.style.transform = "translateX(0)"
+                } 
+                else
+                {
+                    drawer_menu.style.transform = "translateX(100%)"
+                }
+            }
+            
         }
     </script>
 </body>

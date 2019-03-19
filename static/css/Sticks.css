@@ -52,3 +52,12 @@
         margin-left:30px;
     }
 }
+
+@media screen and (max-height: 425px){
+    .shop_container{
+        background-image: url("../images/Light-wood-wallpaper-background-HD.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}

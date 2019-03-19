@@ -16,6 +16,27 @@ a{
     font-family: grafipaint;
     src: url("../fonts/Grafipaint.ttf");
 }
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/materialicons/v46/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
+}
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
 .game_layout{
     display:flex;
     flex-direction: column;
@@ -151,6 +172,11 @@ a{
         bottom:0;
         top:initial;
     }
+    .navbar > div{
+        color: #d8b846;
+        text-shadow: 1px 2px 2px #000;
+        font-weight: 0;
+    }
 }
 
 @media only screen and (max-width: 768px){
@@ -212,6 +238,74 @@ a{
     }
     .navbar{
         z-index: 1;
+    }
+    .navbar > div{
+        color: #d8b846;
+        text-shadow: 1px 2px 2px #000;
+        font-weight: 0;
+    }
+    .player_drawer{
+        position: absolute;
+        bottom:0;
+        left:0;
+        right:0;
+        margin:0px auto;
+        color:#D8B846;
+        text-align: center;
+        display:block;
+    }
+    .player_drawer > .drawer_icon{
+        position: absolute;
+        bottom:0;
+        width:17px;
+        margin-top:8px;
+    }
+    .player_drawer > .drawer_icon > span{
+        background-color: #D8B846;
+    }
+    .player_drawer > .drawer_icon > .closed:first-child{
+        top:6px;
+        left: 5px;
+        transform: rotate(43deg);
+
+    }
+    .player_drawer > .drawer_icon > .closed:last-child{
+        top:6px;
+        right: 5px;
+        transform: rotate(-43deg);
+    }
+    
+    .player_drawer > .drawer_icon > .opened:first-child{
+        top:6px;
+        left: 5px;
+        transform: rotate(-43deg);
+    }
+    .player_drawer > .drawer_icon > .opened:last-child{
+        top:6px;
+        right: 5px;
+        transform: rotate(43deg);
+    }
+    .player_drawer > .drawer_menu{
+        overflow:scroll;
+        bottom:0;
+        left:0;
+        right:0;
+        margin:0px auto;
+        width:200px;
+        height:200px;
+        background-image: url("../images/27090724-blackboard-wallpapers.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        box-shadow: initial;
+        text-align: center;
+        padding-left:9px;
+    }
+    .player_drawer > .drawer_menu > header{
+        display:none;
+    }
+    .player_drawer > .drawer_menu:last-child{
+        padding-bottom:30px;
     }
     .index_layout{
         flex-direction: row!important;
