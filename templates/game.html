@@ -1,154 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="../static/css/Drawer.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/Button.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
-    <title>MathStick</title>
-</head>
-<body>
-    <div id="rotate_screen"></div>
-    <div class="navbar">
-        <i class="back button material-icons" onclick="location.href = '/settings'">keyboard_backspace</i>
-        <img src="../static/images/coins_broken_transperent_new.png" alt="coins"/>
-        <div id="coin_count">{{ coins }}</div>
-    </div>
-    <div onClick="show_drawer()" class="player_drawer drawer_corner">
-        <div class="drawer_icon">
-            <span class="opened"></span>
-            <span class="opened"></span>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="google" content="notranslate">
+        <meta http-equiv="Content-Language" content="en_US">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="theme-color" content="#E2BE96">
+        <link rel="stylesheet" type="text/css" href="static/css/Drawer.css">
+        <link rel="stylesheet" type="text/css" href="static/css/Button.css">
+        <link rel="stylesheet" type="text/css" href="static/css/index.css">
+        <link rel="stylesheet" type="text/css" href="static/css/game.css">
+        <title>MathStick</title>
+    </head>
+    <body>
+        <div id="rotate_screen"></div>
+        <div class="navbar">
+            <i class="back button material-icons" onclick="location.href = '/settings'">keyboard_backspace</i>
+            <img src="../static/images/coins_broken_transperent_new.png" alt="coins"/>
+            <div id="coin_count">{{ coins }}</div>
         </div>
-        <div class="drawer_menu" id="players">
-            <header>Players</header>
-            <p>asd</p>
-            <p>asd</p>
-            <p>asd</p>
-            <p>asd</p>
-            <p>asd</p>
-            <p>asd</p>
-            <p>asd</p>
-            <p>asd</p>
-            <p>asd</p>
-            <p>asd</p>
-            <p>asd</p>
-            <p>asd</p>
-        </div>
-    </div>
-    <div id="content">
-        <div class="game_layout">
-            <i id="fullscreen" class="button material-icons" onclick="fullscreen()">fullscreen</i>
-            <p>Move one stick so the equation is true!</p>
-            <div id="game">
-
+        <div onClick="show_drawer()" class="player_drawer drawer_corner">
+            <div class="drawer_icon">
+                <span class="opened"></span>
+                <span class="opened"></span>
+            </div>
+            <div class="drawer_menu" id="players">
+                <header>Players</header>
             </div>
         </div>
-    </div>
-    <!-- <h1>Hello {{ name }} {{ id }}</h1> -->
-    <input type="hidden" id="user_id" value="{{ id }}">
-    <input type="hidden" id="username" value="{{ name }}">
-    <input type="hidden" id="gamemode" value="{{ mode }}">
-    <script src="/static/lib/socket.io.js"></script>
-    <script src="/static/lib/pixi.min.js"></script>
-    <script src="/static/js/utils.js"></script>
-    <script src="/static/js/symbol_displays.js"></script>
-    <script src="/static/js/matches.js"></script>
-    <script src="/static/js/main.js"></script>
-    <script>
-        (function() {
-            // if(sessionStorage.getItem('game_mode')=="singleplayer"){
-            //     document.getElementsByClassName("drawer_corner")[0].style.display = "none"
-            // } else {
-            //     document.getElementsByClassName("drawer_corner")[0].style.display = "block"
-            // }
-            var rotate_screen = document.getElementById("rotate_screen")
-            var content = document.getElementById("content")
-            if(window.innerHeight > window.innerWidth)
-            {
-                content.style.display = "none"
-                rotate_screen.style.display = "block"
-            }
-            window.addEventListener("orientationchange", function() {
-                var drawer = document.getElementsByClassName("drawer_icon")[0]
-                if(screen.orientation.angle == 180 || screen.orientation.angle == 0)
+        <div id="content">
+            <div class="game_layout">
+                <i id="fullscreen" class="button material-icons" onclick="fullscreen()">fullscreen</i>
+                <p>Move one stick so the equation is true!</p>
+                <div id="game">
+
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="user_id" value="{{ id }}">
+        <input type="hidden" id="username" value="{{ name }}">
+        <input type="hidden" id="gamemode" value="{{ mode }}">
+        <script src="/static/lib/socket.io.js"></script>
+        <script src="/static/lib/pixi.min.js"></script>
+        <script src="/static/js/utils.js"></script>
+        <script src="/static/js/symbol_displays.js"></script>
+        <script src="/static/js/matches.js"></script>
+        <script src="/static/js/main.js"></script>
+        <script>
+            (function() {
+                if(sessionStorage.getItem('game_mode')=="singleplayer"){
+                    document.getElementsByClassName("drawer_corner")[0].style.display = "none"
+                } else {
+                    document.getElementsByClassName("drawer_corner")[0].style.display = "block"
+                }
+                var rotate_screen = document.getElementById("rotate_screen")
+                var content = document.getElementById("content")
+                var drawer_icon = document.getElementsByClassName("drawer_icon")[0]
+                var drawer = document.getElementsByClassName("player_drawer")[0]
+                if(window.innerHeight > window.innerWidth)
                 {
+                    drawer.style.display = "none"
                     content.style.display = "none"
                     rotate_screen.style.display = "block"
-                } 
-                else 
-                {
-                    content.style.display = "block"
-                    rotate_screen.style.display = "none"
-                    if(window.matchMedia("(max-height: 425px)").matches)
+                }
+                window.addEventListener("orientationchange", function() {
+                    if(screen.orientation.angle == 180 || screen.orientation.angle == 0)
                     {
-                        document.getElementsByClassName("drawer_menu")[0].style.transform = "translateY(100%)"
+                        drawer.style.display = "none"
+                        content.style.display = "none"
+                        rotate_screen.style.display = "block"
+                    } 
+                    else 
+                    {
+                        drawer.style.display = "block"
+                        content.style.display = "block"
+                        rotate_screen.style.display = "none"
+                        
+                    }
+                });
+            })()
+            function fullscreen(){
+                if (document.fullscreenElement)
+                {
+                    document.getElementById("fullscreen").innerHTML="fullscreen"
+                    document.exitFullscreen();
+                } 
+                else
+                {
+                    document.getElementById("fullscreen").innerHTML="fullscreen_exit"
+                    document.documentElement.requestFullscreen();
+                }
+            }
+            function show_drawer(){
+                var drawer = document.getElementsByClassName("drawer_icon")[0]
+                var drawer_menu = document.getElementsByClassName("drawer_menu")[0]
+                for(var i=0;i<drawer.children.length;i++)
+                {
+                    if(drawer.children[i].classList.contains("closed"))
+                    {
+                        drawer.children[i].classList.remove("closed")
+                        drawer.children[i].classList.add("opened")
                     }
                     else
-                    {
-                        document.getElementsByClassName("drawer_menu")[0].style.transform = "translateX(100%)"
-                    }
-                    for(var i=0;i<drawer.children.length;i++)
                     {
                         drawer.children[i].classList.remove("opened")
                         drawer.children[i].classList.add("closed")
                     }
                 }
-            });
-        })()
-        function fullscreen(){
-            if (document.fullscreenElement)
-            {
-                document.getElementById("fullscreen").innerHTML="fullscreen"
-                document.exitFullscreen();
-            } 
-            else
-            {
-                document.getElementById("fullscreen").innerHTML="fullscreen_exit"
-                document.documentElement.requestFullscreen();
-            }
-        }
-        function show_drawer(){
-            var drawer = document.getElementsByClassName("drawer_icon")[0]
-            var drawer_menu = document.getElementsByClassName("drawer_menu")[0]
-            for(var i=0;i<drawer.children.length;i++)
-            {
-                if(drawer.children[i].classList.contains("closed"))
+                if(window.matchMedia("(max-height: 425px)").matches)
                 {
-                    drawer.children[i].classList.remove("closed")
-                    drawer.children[i].classList.add("opened")
+                    if(drawer_menu.style.transform == "translateY(100%)")
+                    {
+                        drawer_menu.style.transform = "translateY(0)"
+                    } 
+                    else
+                    {
+                        drawer_menu.style.transform = "translateY(100%)"
+                    }
                 }
                 else
                 {
-                    drawer.children[i].classList.remove("opened")
-                    drawer.children[i].classList.add("closed")
+                    if(drawer_menu.style.transform == "translateX(100%)")
+                    {
+                        drawer_menu.style.transform = "translateX(0)"
+                    } 
+                    else
+                    {
+                        drawer_menu.style.transform = "translateX(100%)"
+                    }
                 }
+                
             }
-            if(window.matchMedia("(max-height: 425px)").matches)
-            {
-                if(drawer_menu.style.transform == "translateY(100%)")
-                {
-                    drawer_menu.style.transform = "translateY(0)"
-                } 
-                else
-                {
-                    drawer_menu.style.transform = "translateY(100%)"
-                }
-            }
-            else
-            {
-                if(drawer_menu.style.transform == "translateX(100%)")
-                {
-                    drawer_menu.style.transform = "translateX(0)"
-                } 
-                else
-                {
-                    drawer_menu.style.transform = "translateX(100%)"
-                }
-            }
-            
-        }
-    </script>
-</body>
+        </script>
+    </body>
 </html>

@@ -37,25 +37,6 @@ a{
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
 }
-.game_layout{
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background-image: url("../images/Light-wood-wallpaper-background-HD.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.game_layout > p{
-    font-size: 30px;
-    user-select: none;
-    color:#5C351D;
-    text-shadow: 1px 1px 2px #000;
-}
 
 .navbar{
     display: flex;
@@ -83,7 +64,8 @@ a{
 }
 
 .navbar > div{
-    color: #5C351D;
+    color: #d8b846;
+    text-shadow: 1px 2px 2px #000;
     font-weight: bold;
     font-size:28px;
 }
@@ -94,11 +76,6 @@ a{
     margin-right:20px;
     cursor: pointer;
     user-select: none;
-}
-
-#game > canvas{
-    border:20px double grey;
-    border-radius:30px;
 }
 
 .index_layout{
@@ -140,42 +117,11 @@ a{
     right:0;
 }
 
-.player_drawer > .drawer_menu{
-    overflow: auto;
-    border-bottom-right-radius: 0px;
-}
-
-.player_drawer > .drawer_menu > p{
-    text-align: center;
-    padding-left:20px;
-    padding-right:20px;
-    font-size:23px;
-}
-
-#rotate_screen{
-    background-image: url("../images/rotate+device5+cropped.png");
-    width:100vw;
-    height:100vh;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    display:none;
-}
-
-#fullscreen{
-    display: none;
-}
-
 @media screen and (max-width: 600px){
     .navbar_index{
         margin-bottom:10px;
         bottom:0;
         top:initial;
-    }
-    .navbar > div{
-        color: #d8b846;
-        text-shadow: 1px 2px 2px #000;
-        font-weight: 0;
     }
 }
 
@@ -184,10 +130,12 @@ a{
         flex-direction: column!important;
         justify-content: center!important;
     }
+
     .index_layout > *{
         font-size:2rem!important;
         margin-top:40px;
     }
+
     #logo{
         width:300px!important;
     }
@@ -198,123 +146,32 @@ a{
         flex-direction: row;
         justify-content: space-evenly;
     }
+
     .index_layout > *{
         font-size:2rem!important;
         margin-top:40px;
     }
+
     #logo{
         width:300px!important;
     }
 }
 
 @media only screen and (max-height: 425px){
-    #fullscreen{
-        display:block;
-        position:absolute;
-        z-index: 1;
-        border:0;
-        color:#D8B846;
-        font-size: 50px;
-        bottom:0;
-        padding:0;  
-        background-color: transparent;
-        text-shadow: 1px 2px 2px #000;
-    }
-
-    .game_layout{
-        display:block;
-        z-index: -1;
-    }
-    .game_layout > p{
-        display:none;  
-    }
-    #game > canvas{
-        position: absolute;
-        border:0;
-        border-radius: 0;
-        width:100%;
-        height: 100%;
-        z-index: 0;
-    }
     .navbar{
         z-index: 1;
     }
-    .navbar > div{
-        color: #d8b846;
-        text-shadow: 1px 2px 2px #000;
-        font-weight: 0;
-    }
-    .player_drawer{
-        position: absolute;
-        bottom:0;
-        left:0;
-        right:0;
-        margin:0px auto;
-        color:#D8B846;
-        text-align: center;
-        display:block;
-    }
-    .player_drawer > .drawer_icon{
-        position: absolute;
-        bottom:0;
-        width:17px;
-        margin-top:8px;
-    }
-    .player_drawer > .drawer_icon > span{
-        background-color: #D8B846;
-    }
-    .player_drawer > .drawer_icon > .closed:first-child{
-        top:6px;
-        left: 5px;
-        transform: rotate(43deg);
-
-    }
-    .player_drawer > .drawer_icon > .closed:last-child{
-        top:6px;
-        right: 5px;
-        transform: rotate(-43deg);
-    }
     
-    .player_drawer > .drawer_icon > .opened:first-child{
-        top:6px;
-        left: 5px;
-        transform: rotate(-43deg);
-    }
-    .player_drawer > .drawer_icon > .opened:last-child{
-        top:6px;
-        right: 5px;
-        transform: rotate(43deg);
-    }
-    .player_drawer > .drawer_menu{
-        overflow:scroll;
-        bottom:0;
-        left:0;
-        right:0;
-        margin:0px auto;
-        width:200px;
-        height:200px;
-        background-image: url("../images/27090724-blackboard-wallpapers.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-        box-shadow: initial;
-        text-align: center;
-        padding-left:9px;
-    }
-    .player_drawer > .drawer_menu > header{
-        display:none;
-    }
-    .player_drawer > .drawer_menu:last-child{
-        padding-bottom:30px;
-    }
     .index_layout{
         flex-direction: row!important;
         justify-content: space-evenly!important;
     }
+
     .index_layout > *{
         margin-top:100px;
         font-size:1.2rem!important;
     }
+
     #logo{
         width:450px!important;
         height:140px!important;

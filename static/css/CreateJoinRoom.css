@@ -85,6 +85,17 @@
     text-align: center;
 }
 
+@media screen and (max-height: 768px){
+    .create_room_wrapper{
+        flex-direction: column!important;
+    }
+    .create_room_wrapper > #controls{
+        font-size:25px;
+    }
+    #joined_players{
+        max-height: 200px;
+    }
+}
 @media only screen and (max-height: 425px){
     .create_room_wrapper{
         flex-direction: row!important;
@@ -97,14 +108,14 @@
     }
 }
 
-@media screen and (max-height: 768px){
+@media screen and (max-width: 425px){
     .create_room_wrapper{
         flex-direction: column!important;
     }
     .create_room_wrapper > #controls{
-        font-size:25px;
+        font-size:25px!important;
     }
     #joined_players{
-        max-height: 200px;
+        max-width: 200px!important;
     }
 }
