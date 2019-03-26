@@ -3,6 +3,8 @@ MathStick is an online multiplaer game created to challenge your logical thinkin
 The goal is simple - move 1 matchstick so that the equation becomes correct. You can compete against your friends to see who can
 solve the puzzle faster.
 
+Here's a link to the game: [mathstick.net](https://mathstick.net/)
+
 # How do I run it locally?
 
 1. Install python3 and mysql-server
