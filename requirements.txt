@@ -1,0 +1,5 @@
+Flask
+flask-passlib
+flask-socketio
+pymysql
+validate-email
